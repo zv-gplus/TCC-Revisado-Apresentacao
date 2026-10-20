@@ -20,7 +20,7 @@ Base ampliada em 19/10/2026 com fontes oficiais. As fichas anteriores foram cons
 - Identificadores e primeiras peças foram preservados para manter montagens antigas.
 - As seleções novas funcionam no salvamento, restauração e exportação. Compartilhamento continua sem levar confirmações pessoais de BIOS/cabos/kit.
 
-Não há sincronização automática. Os preços passaram a vir do cadastro manual em frontend/ofertas.js, conforme docs/OFERTAS-E-PRECOS.md. Somente o modelo exato recebe a oferta; dados ausentes não são preenchidos com preços ilustrativos. Consumo e FPS continuam estimativas do chip, não medições da variante física. Overclock e revisões podem mudar esses valores.
+Não há sincronização automática. Os preços passaram a vir do cadastro manual em frontend/dados/ofertas.js, conforme docs/OFERTAS-E-PRECOS.md. Somente o modelo exato recebe a oferta; dados ausentes não são preenchidos com preços ilustrativos. Consumo e FPS continuam estimativas do chip, não medições da variante física. Overclock e revisões podem mudar esses valores.
 
 ## BIOS: nove pares com mínimo confirmado
 
@@ -113,7 +113,7 @@ Para SATA, a regra confere um conector de energia, sem validar cabo de dados, ba
 
 ## Testes desta ampliação
 
-- node testes-validacoes.cjs: 46 testes específicos e 172.800 cenários, além da regressão anterior.
+- node tests/validacoes.cjs: 46 testes específicos e 172.800 cenários, além da regressão anterior.
 - node tests/catalogo.cjs: 14 testes de cobertura, BIOS mínima/antiga, opções, variantes, conflitos, dados ausentes e salvar/restaurar.
 - Os relatórios JSON acompanham o projeto. Tema, estados visuais e compartilhamento também devem passar antes de publicar.
 

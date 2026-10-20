@@ -4,7 +4,7 @@ O botão ao lado da marca alterna entre claro e escuro. Em celulares estreitos e
 
 Ao abrir o site, uma escolha salva em `ntj-theme` tem prioridade. Sem escolha válida, usa a preferência do aparelho. Se o sistema mudar de tema, o site acompanha enquanto não houver escolha manual. A opção continua funcionando quando o navegador bloqueia o armazenamento; nesse caso vale apenas para a visita atual. A chave da montagem é separada e não é alterada pelo controle visual.
 
-O script `frontend/tema.js` é carregado antes do CSS, e a aparência depende de `data-theme` no elemento HTML. O arquivo de estilos contém as duas paletas. Tamanhos e estrutura são compartilhados: a troca altera somente as cores. O painel de registros também lê a preferência salva ao carregar; para mudá-la, use o botão do montador.
+O script `frontend/js/tema.js` é carregado antes do CSS, e a aparência depende de `data-theme` no elemento HTML. O arquivo de estilos contém as duas paletas. Tamanhos e estrutura são compartilhados: a troca altera somente as cores. O painel de registros também lê a preferência salva ao carregar; para mudá-la, use o botão do montador.
 
 As cores de fundo, campos, tabelas, botões, avisos, erros, compatibilidade, indicadores, caixa de compartilhamento e barra móvel usam variáveis de tema. Textos dos estados continuam presentes; a informação não depende somente das cores.
 
@@ -21,7 +21,7 @@ Os testes anteriores de montagem, validação, compartilhamento e segurança con
 
 ## Fundo RGB
 
-Textura aprovada e aplicada com quadrados entrelaçados de contorno fino em vermelho, verde e azul, desenhados no arquivo local `frontend/textura-rgb.svg`. O CSS repete o SVG como uma camada decorativa fixa atrás do conteúdo, sem animação, sem JavaScript e sem capturar cliques. A opacidade é adaptada aos dois temas e reduzida no celular; uma máscara suaviza a textura no centro. Cartões, campos e a barra móvel permanecem opacos. O efeito não é impresso.
+Textura aprovada e aplicada com quadrados entrelaçados de contorno fino em vermelho, verde e azul, desenhados no arquivo local `frontend/img/textura-rgb.svg`. O CSS repete o SVG como uma camada decorativa fixa atrás do conteúdo, sem animação, sem JavaScript e sem capturar cliques. A opacidade é adaptada aos dois temas e reduzida no celular; uma máscara suaviza a textura no centro. Cartões, campos e a barra móvel permanecem opacos. O efeito não é impresso.
 
 O SVG contém quadrados e máscaras locais que alternam os cruzamentos para criar o entrelaçamento; não carrega scripts, fontes ou recursos externos. A conferência visual em navegador continua pendente.
 

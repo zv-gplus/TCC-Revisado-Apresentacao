@@ -1,7 +1,7 @@
-import { secureResponse } from "../server/resposta-segura.mjs";
+import { secureResponse } from "../src/server/resposta-segura.mjs";
 import handler from "vinext/server/fetch-handler";
-import { runWithConnectorBinding } from "../lib/connector-context";
-import type { ConnectorBinding } from "../lib/connector-contract.mjs";
+import { runWithConnectorBinding } from "../src/lib/connector-context";
+import type { ConnectorBinding } from "../src/lib/connector-contract.mjs";
 
 export default {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {

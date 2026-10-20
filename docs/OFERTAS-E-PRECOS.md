@@ -24,7 +24,7 @@ Memórias genéricas, kits sem identificação suficiente ou produtos com revis�
 
 ## Como atualizar de forma simples
 
-Edite somente `frontend/ofertas.js` para adicionar ou atualizar ofertas. Pesquise a página do produto exato e confira modelo, revisão, capacidade e se é unidade ou kit. Não use valor de produto similar, open box, kit, parcela ou anúncio esgotado como preço ativo.
+Edite somente `frontend/dados/ofertas.js` para adicionar ou atualizar ofertas. Pesquise a página do produto exato e confira modelo, revisão, capacidade e se é unidade ou kit. Não use valor de produto similar, open box, kit, parcela ou anúncio esgotado como preço ativo.
 
 A chave é `tipo:id`, por exemplo `cpu:ryzen5-5500`. Para GPU use o ID da variante, por exemplo `gpu:asus-7600-dual-oc`; não use `gpu:rx7600`.
 
@@ -43,12 +43,12 @@ Campos:
 
 Uma oferta `quoted` requer centavos positivos, condição e data válida. Para `unavailable`, use `priceCents: null` e `payment: null`. Para remover uma cotação que não pôde ser reconfirmada, remova a entrada ou registre a indisponibilidade observada. Sem entrada, o site continua funcionando.
 
-As lojas permitidas estão em `STORE_HOSTS`, em `frontend/precos.js`. Não aceite URLs ou cotações arbitrárias por formulário ou armazenamento local. Para adicionar outra loja, revise o domínio e o formato de link direto dessa loja.
+As lojas permitidas estão em `STORE_HOSTS`, em `frontend/js/precos.js`. Não aceite URLs ou cotações arbitrárias por formulário ou armazenamento local. Para adicionar outra loja, revise o domínio e o formato de link direto dessa loja.
 
-Os antigos valores ilustrativos foram removidos do catálogo. Há uma única fonte de preços usada pela interface: `frontend/ofertas.js`. O arquivo `docs/ofertas-consultadas.json` guarda o registro desta pesquisa e não é lido pelo site.
+Os antigos valores ilustrativos foram removidos do catálogo. Há uma única fonte de preços usada pela interface: `frontend/dados/ofertas.js`. O arquivo `docs/ofertas-consultadas.json` guarda o registro desta pesquisa e não é lido pelo site.
 
 ## Validação
 
-Execute `node tests/precos.cjs`, `node testes-validacoes.cjs`, `node tests/catalogo.cjs`, `node tests/tema.cjs`, `node tests/estados.cjs` e `node testes-compartilhamento.cjs`. Os testes de preço cobrem soma exata, subtotal incompleto, orçamento, troca de GPU, esgotados, links inválidos, adulteração do armazenamento e exportação. A oferta ativa de GPU usada em um teste é uma fixture temporária, não uma cotação publicada.
+Execute `node tests/precos.cjs`, `node tests/validacoes.cjs`, `node tests/catalogo.cjs`, `node tests/tema.cjs`, `node tests/estados.cjs` e `node tests/compartilhamento.cjs`. Os testes de preço cobrem soma exata, subtotal incompleto, orçamento, troca de GPU, esgotados, links inválidos, adulteração do armazenamento e exportação. A oferta ativa de GPU usada em um teste é uma fixture temporária, não uma cotação publicada.
 
 Os testes da interface usam DOM simulado. Não houve conferência desta mudança em navegador real nem ensaio de compra.
