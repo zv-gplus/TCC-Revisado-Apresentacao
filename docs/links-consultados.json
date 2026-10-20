@@ -1,0 +1,425 @@
+{
+  "at": "2026-10-20T03:10:58.672Z",
+  "note": "Sondagem HTTP; 403, timeout e bloqueios não comprovam link quebrado. Não verifica preço/estoque.",
+  "results": [
+    {
+      "url": "https://www.msi.com/Graphics-Card/Radeon-RX-580-ARMOR-8G-OC/Specification",
+      "status": 200,
+      "final": "https://www.msi.com/Graphics-Card/Radeon-RX-580-ARMOR-8G-OC/Specification"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx7800xt-o16g-gaming/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx7800xt-o16g-gaming/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx6600-8g/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx6600-8g/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx7900xtx-o24g-gaming/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx7900xtx-o24g-gaming/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/uk/motherboards-components/graphics-cards/dual/dual-rx7600-o8g/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/uk/motherboards-components/graphics-cards/dual/dual-rx7600-o8g/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx7700xt-o12g/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rx7700xt-o12g/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060ti-o8g/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4090-o24g-gaming/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4090-o24g-gaming/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx3060-o12g-v2/techspec/"
+    },
+    {
+      "url": "https://www.msi.com/Motherboard/MAG-B650-TOMAHAWK-WIFI/support",
+      "status": 200,
+      "final": "https://www.msi.com/Motherboard/MAG-B650-TOMAHAWK-WIFI/support"
+    },
+    {
+      "url": "https://www.msi.com/Motherboard/A520M-A-PRO/support",
+      "status": 200,
+      "final": "https://www.msi.com/Motherboard/A520M-A-PRO/support"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070ti-o12g-gaming/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070ti-o12g-gaming/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060-o8g/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/dual/dual-rtx4060-o8g/techspec/"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070tis-o16g-gaming/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx4070tis-o16g-gaming/techspec/"
+    },
+    {
+      "url": "https://www.deepcool.com/products/Cases/CC560-V2-Mid-Tower-Airflow-Case/2023/17782.shtml",
+      "status": 200,
+      "final": "https://www.deepcool.com/products/Cases/CC560-V2-Mid-Tower-Airflow-Case/2023/17782.shtml"
+    },
+    {
+      "url": "https://global.deepcool.com/products/Cases/fulltowercases/CC560-Mid-Tower-ATX-PC-Case/2021/15216.shtml",
+      "status": 200,
+      "final": "https://global.deepcool.com/products/Cases/fulltowercases/CC560-Mid-Tower-ATX-PC-Case/2021/15216.shtml"
+    },
+    {
+      "url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AG500-BK-ARGB-Performance-CPU-Cooler-1700-AM5/2022/16252.shtml",
+      "status": 200,
+      "final": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AG500-BK-ARGB-Performance-CPU-Cooler-1700-AM5/2022/16252.shtml"
+    },
+    {
+      "url": "https://pt.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1700-AM5/2022/15935.shtml",
+      "status": 200,
+      "final": "https://pt.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1700-AM5/2022/15935.shtml"
+    },
+    {
+      "url": "https://br.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-SUPER-16G-VENTUS-3X-OC/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-SUPER-16G-VENTUS-3X-OC/Specification"
+    },
+    {
+      "url": "https://br.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-12G-OC/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Graphics-Card/GeForce-RTX-4070-Ti-VENTUS-3X-12G-OC/Specification"
+    },
+    {
+      "url": "https://br.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Graphics-Card/GeForce-RTX-3060-VENTUS-2X-12G-OC/Specification"
+    },
+    {
+      "url": "https://global.deepcool.com/products/Cases/CH370-Micro-ATX-Case/2022/15949.shtml",
+      "status": 200,
+      "final": "https://global.deepcool.com/products/Cases/CH370-Micro-ATX-Case/2022/15949.shtml"
+    },
+    {
+      "url": "https://br.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Graphics-Card/GeForce-RTX-4060-Ti-VENTUS-2X-BLACK-8G-OC/Specification"
+    },
+    {
+      "url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7900-xtx-24g-gddr6",
+      "status": 200,
+      "final": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7900-xtx-24g-gddr6"
+    },
+    {
+      "url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-8g-gddr6",
+      "status": 200,
+      "final": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7600-8g-gddr6"
+    },
+    {
+      "url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7800-xt-16g-gddr6",
+      "status": 200,
+      "final": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-7800-xt-16g-gddr6"
+    },
+    {
+      "url": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6600-8g-gddr6",
+      "status": 200,
+      "final": "https://www.sapphiretech.com/en/consumer/pulse-radeon-rx-6600-8g-gddr6"
+    },
+    {
+      "url": "https://www.sapphiretech.com/en/consumer/pulse-rx-580-8g-g5",
+      "status": 200,
+      "final": "https://www.sapphiretech.com/en/consumer/pulse-rx-580-8g-g5"
+    },
+    {
+      "url": "https://www.asrock.com/support/cpu.asp?s=1700&u=1347",
+      "status": 200,
+      "final": "https://www.asrock.com/support/cpu.asp?s=1700&u=1347"
+    },
+    {
+      "url": "https://www.asrock.com/support/cpu.ru.asp?s=1700&u=1348",
+      "status": 200,
+      "final": "https://www.asrock.com/support/cpu.ru.asp?s=1700&u=1348"
+    },
+    {
+      "url": "https://www.asrock.com/support/cpu.de.asp?s=1700&u=1384",
+      "status": 200,
+      "final": "https://www.asrock.com/support/cpu.de.asp?s=1700&u=1384"
+    },
+    {
+      "url": "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml",
+      "status": 200,
+      "final": "https://www.deepcool.com/products/Cases/CH560-New-Generation-of-Airflow-Case/2023/17101.shtml"
+    },
+    {
+      "url": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b550m-plus/techspec/",
+      "status": 200,
+      "final": "https://www.asus.com/motherboards-components/motherboards/tuf-gaming/tuf-gaming-b550m-plus/techspec/"
+    },
+    {
+      "url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG620-Dual-Tower-CPU-Cooler-1851-1700-AM5/2024/15900.shtml?pn=R-AG620-BKNNMN-G-1",
+      "status": 200,
+      "final": "https://www.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG620-Dual-Tower-CPU-Cooler-1851-1700-AM5/2024/15900.shtml?pn=R-AG620-BKNNMN-G-1"
+    },
+    {
+      "url": "https://global.deepcool.com/products/Cooling/cpuaircoolers/AK500-ZERO-DARK-High-Performance-CPU-Cooler-1700-AM5/2022/16396.shtml",
+      "status": 200,
+      "final": "https://global.deepcool.com/products/Cooling/cpuaircoolers/AK500-ZERO-DARK-High-Performance-CPU-Cooler-1700-AM5/2022/16396.shtml"
+    },
+    {
+      "url": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification?form=MG0AV3",
+      "status": 200,
+      "final": "https://www.msi.com/Motherboard/A520M-A-PRO/Specification?form=MG0AV3"
+    },
+    {
+      "url": "https://assets.corsair.com/image/upload/v1684779868/corsairmedia/sys_master/productcontent/WW_4000D_4000D_Airflow_QSG_AB.pdf",
+      "status": 200,
+      "final": "https://assets.corsair.com/image/upload/v1684779868/corsairmedia/sys_master/productcontent/WW_4000D_4000D_Airflow_QSG_AB.pdf"
+    },
+    {
+      "url": "https://www.coolermaster.com/en-us/products/masterbox-q300l.html",
+      "status": 200,
+      "final": "https://www.coolermaster.com/en-us/products/masterbox-q300l.html"
+    },
+    {
+      "url": "https://rog.asus.com/pl/motherboards/rog-strix/rog-strix-z790-e-gaming-wifi-model/helpdesk_qvl_cpu/",
+      "status": 200,
+      "final": "https://rog.asus.com/pl/motherboards/rog-strix/rog-strix-z790-e-gaming-wifi-model/helpdesk_qvl_cpu/"
+    },
+    {
+      "url": "https://global.deepcool.com/products/Cooling/cpuaircoolers/AK400-Performance-CPU-Cooler-1700-AM5/2021/15222.shtml",
+      "status": 200,
+      "final": "https://global.deepcool.com/products/Cooling/cpuaircoolers/AK400-Performance-CPU-Cooler-1700-AM5/2021/15222.shtml"
+    },
+    {
+      "url": "https://br.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification"
+    },
+    {
+      "url": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-High-Performance-CPU-Cooler-1700-AM5/2021/13067.shtml",
+      "status": 200,
+      "final": "https://www.deepcool.com/products/Cooling/cpuaircoolers/AK620-High-Performance-CPU-Cooler-1700-AM5/2021/13067.shtml"
+    },
+    {
+      "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/",
+      "status": 200,
+      "final": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"
+    },
+    {
+      "url": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-9-7950x.html",
+      "status": 200,
+      "final": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-9-7950x.html"
+    },
+    {
+      "url": "https://www.corsair.com/ww/en/p/pc-cases/cc-9011200-ww/40",
+      "status": 200,
+      "final": "https://www.corsair.com/ww/en/p/pc-cases/cc-9011200-ww/40"
+    },
+    {
+      "url": "https://www.amd.com/pt/products/processors/desktops/ryzen/7000-series/amd-ryzen-7-7700x.html",
+      "status": 200,
+      "final": "https://www.amd.com/pt/products/processors/desktops/ryzen/7000-series/amd-ryzen-7-7700x.html"
+    },
+    {
+      "url": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html",
+      "status": 200,
+      "final": "https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5500.html"
+    },
+    {
+      "url": "https://www.amd.com/en/partner/articles/amd-ryzen-7000-series-desktop-processors.html",
+      "status": 200,
+      "final": "https://www.amd.com/en/partner/articles/amd-ryzen-7000-series-desktop-processors.html"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/products/sku/236773/intel-core-i9-processor-14900k-36m-cache-up-to-6-00-ghz/specifications.html",
+      "status": 200,
+      "final": "https://www.intel.com/content/www/us/en/products/sku/236773/intel-core-i9-processor-14900k-36m-cache-up-to-6-00-ghz/specifications.html"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/products/sku/230500/intel-core-i713700k-processor-30m-cache-up-to-5-40-ghz/specifications.html",
+      "status": 200,
+      "final": "https://www.intel.com/content/www/us/en/products/sku/230500/intel-core-i713700k-processor-30m-cache-up-to-5-40-ghz/specifications.html"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/products/sku/230493/intel-core-i513600k-processor-24m-cache-up-to-5-10-ghz/specifications.html",
+      "status": 200,
+      "final": "https://www.intel.com/content/www/us/en/products/sku/230493/intel-core-i513600k-processor-24m-cache-up-to-5-10-ghz/specifications.html"
+    },
+    {
+      "url": "https://br.msi.com/Power-Supply/MAG-A750GL-PCIE5/Specification",
+      "status": 200,
+      "final": "https://br.msi.com/Power-Supply/MAG-A750GL-PCIE5/Specification"
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/products/sku/132223/intel-core-i312100f-processor-12m-cache-up-to-4-30-ghz/specifications.html",
+      "status": 200,
+      "final": "https://www.intel.com/content/www/us/en/products/sku/132223/intel-core-i312100f-processor-12m-cache-up-to-4-30-ghz/specifications.html"
+    },
+    {
+      "url": "https://www.asrock.com/mb/Intel/B660M%20Phantom%20Gaming%204/index.asp",
+      "status": 200,
+      "final": "https://www.asrock.com/mb/Intel/B660M%20Phantom%20Gaming%204/index.asp"
+    },
+    {
+      "url": "https://us.msi.com/Power-Supply/MAG-A550BN/Specification",
+      "status": 200,
+      "final": "https://us.msi.com/Power-Supply/MAG-A550BN/Specification"
+    },
+    {
+      "url": "https://www.msi.com/Motherboard/MAG-B650-TOMAHAWK-WIFI/Specification",
+      "status": 200,
+      "final": "https://www.msi.com/Motherboard/MAG-B650-TOMAHAWK-WIFI/Specification"
+    },
+    {
+      "url": "https://www.amd.com/en/products/specifications/graphics.html",
+      "status": 200,
+      "final": "https://www.amd.com/en/products/specifications/graphics.html"
+    },
+    {
+      "url": "https://www.kingston.com/en/blog/pc-performance/ddr-memory-generation-differences",
+      "status": 403,
+      "final": "https://www.kingston.com/en/blog/pc-performance/ddr-memory-generation-differences"
+    },
+    {
+      "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/",
+      "status": 200,
+      "final": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+    },
+    {
+      "url": "https://www.xpg.com/us/xpg/dram-modules-spectrix-d35g-rgb-ddr4?tab=spec",
+      "status": 403,
+      "final": "https://www.xpg.com/us/xpg/dram-modules-spectrix-d35g-rgb-ddr4?tab=spec"
+    },
+    {
+      "url": "https://www.xpg.com/il/news/116",
+      "status": 403,
+      "final": "https://www.xpg.com/il/news/116"
+    },
+    {
+      "url": "https://www.kingston.com/datasheets/KF432C16BB_8.pdf",
+      "status": 200,
+      "final": "https://www.kingston.com/datasheets/KF432C16BB_8.pdf"
+    },
+    {
+      "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+      "status": 200,
+      "final": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/"
+    },
+    {
+      "url": "https://www.asus.com/br/supportonly/tuf%20gaming%20b550m-plus/helpdesk_cpu/",
+      "status": 200,
+      "final": "https://www.asus.com/br/supportonly/tuf%20gaming%20b550m-plus/helpdesk_cpu/"
+    },
+    {
+      "url": "https://www.kingston.com/datasheets/SA400_br.pdf",
+      "status": 200,
+      "final": "https://www.kingston.com/datasheets/SA400_br.pdf"
+    },
+    {
+      "url": "https://www.seagate.com/support/internal-hard-drives/desktop-hard-drives/barracuda-3-5/",
+      "status": 200,
+      "final": "https://www.seagate.com/support/internal-hard-drives/desktop-hard-drives/barracuda-3-5/"
+    },
+    {
+      "url": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z790-e-gaming-wifi-model/spec/",
+      "status": 200,
+      "final": "https://rog.asus.com/motherboards/rog-strix/rog-strix-z790-e-gaming-wifi-model/spec/"
+    },
+    {
+      "url": "https://www.kingston.com/datasheets/KC3000_br.pdf",
+      "status": 200,
+      "final": "https://www.kingston.com/datasheets/KC3000_br.pdf"
+    },
+    {
+      "url": "https://www.crucial.com/ssd/p3-plus/ct1000p3pssd8",
+      "status": 200,
+      "final": "https://www.crucial.com/ssd/p3-plus/ct1000p3pssd8"
+    },
+    {
+      "url": "https://eu.crucial.com/ssd/bx500/ct1000bx500ssd1",
+      "status": 200,
+      "final": "https://eu.crucial.com/ssd/bx500/ct1000bx500ssd1"
+    },
+    {
+      "url": "https://www.kingston.com/datasheets/SNV2S_br.pdf",
+      "status": 200,
+      "final": "https://www.kingston.com/datasheets/SNV2S_br.pdf"
+    },
+    {
+      "url": "https://download.semiconductor.samsung.com/resources/data-sheet/samsung_nvme_ssd_990_pro_datasheet_rev.2.0.pdf",
+      "status": 200,
+      "final": "https://download.semiconductor.samsung.com/resources/data-sheet/samsung_nvme_ssd_990_pro_datasheet_rev.2.0.pdf"
+    },
+    {
+      "url": "https://webapi3.adata.com/storage/downloadfile/datasheet_ultimate_su650_25_inch_sata_ssd_v2.pdf",
+      "status": 403,
+      "final": "https://webapi3.adata.com/storage/downloadfile/datasheet_ultimate_su650_25_inch_sata_ssd_v2.pdf"
+    },
+    {
+      "url": "https://www.corsair.com/us/en/p/psu/cp-9020201-na/rmx-series-rm1000x-1000-watt-80-plus-gold-fully-modular-atx-psu-cp-9020201-na",
+      "status": 200,
+      "final": "https://www.corsair.com/us/en/p/psu/cp-9020201-na/rmx-series-rm1000x-1000-watt-80-plus-gold-fully-modular-atx-psu-cp-9020201-na"
+    },
+    {
+      "url": "https://seasonic.com/focus-gx/",
+      "status": 403,
+      "final": "https://seasonic.com/focus-gx/"
+    },
+    {
+      "url": "https://www.evga.com/articles/archive/01185/evga-g-plus-power-supplies/default.asp",
+      "status": 200,
+      "final": "https://www.evga.com/articles/archive/01185/evga-g-plus-power-supplies/default.asp"
+    },
+    {
+      "url": "https://www.coolermaster.com/en-global/products/mwe-bronze-750-v3.html",
+      "status": 200,
+      "final": "https://www.coolermaster.com/en-global/products/mwe-bronze-750-v3.html"
+    },
+    {
+      "url": "https://www.pichau.com.br/fonte-mancer-thunder-500w-bronze-80-plus-mcr-thr500-bl01",
+      "status": 403,
+      "final": "https://www.pichau.com.br/fonte-mancer-thunder-500w-bronze-80-plus-mcr-thr500-bl01"
+    },
+    {
+      "url": "https://www.sapphiretech.com/pt-br/consumer/pulse-radeon-rx-7700-xt-12g-gddr6",
+      "status": "inconclusivo"
+    },
+    {
+      "url": "https://galax.com/pt/product/galax-omega-gl500s/",
+      "status": 200,
+      "final": "https://galax.com/pt/product/galax-omega-gl500s/"
+    },
+    {
+      "url": "https://www.sandisk.com/products/ssd/internal-ssd/wd-black-sn850x-nvme-ssd",
+      "status": 200,
+      "final": "https://www.sandisk.com/products/ssd/internal-ssd/wd-black-sn850x-nvme-ssd"
+    },
+    {
+      "url": "https://aerocool.io/product/lux-550w/",
+      "status": 200,
+      "final": "https://aerocool.io/product/lux-550w/"
+    },
+    {
+      "url": "https://www.corsair.com/br/pt/p/memory/cmk64gx5m2b6000c30/vengeance-64gb-2x32gb-ddr5-dram-6000mt-s-cl30-memory-kit-black-cmk64gx5m2b6000c30",
+      "status": 200,
+      "final": "https://www.corsair.com/br/pt/p/memory/cmk64gx5m2b6000c30/vengeance-64gb-2x32gb-ddr5-dram-6000mt-s-cl30-memory-kit-black-cmk64gx5m2b6000c30"
+    },
+    {
+      "url": "https://www.corsair.com/eu/en/p/psu/cp-9020211-eu/cv-series-cv650-650-watt-80-plus-bronze-certified-psu-cp-9020211-eu",
+      "status": 200,
+      "final": "https://www.corsair.com/eu/en/p/psu/cp-9020211-eu/cv-series-cv650-650-watt-80-plus-bronze-certified-psu-cp-9020211-eu"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; object-src 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTJ Builder — Montador de PC & Comparador de Hardware</title>
+<meta name="description" content="Monte seu PC e compare peças de hardware com estimativa de consumo elétrico e FPS.">
+
+<meta name="color-scheme" content="light dark">
+<script src="tema.js"></script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a class="logo" href="#">
+        <div class="logo-icon" aria-hidden="true">N</div>
+        <div>
+          <div class="logo-text">NTJ <span>Builder</span></div>
+          <span class="logo-sub">Compare peças. Planeje seu PC.</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <span class="project-label">Projeto de TCC · Hardware</span>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Ativar modo escuro" hidden>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <g class="theme-icon-light"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></g>
+            <path class="theme-icon-dark" d="M20 14.2A8.5 8.5 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z"/>
+          </svg><span class="theme-label">Tema claro</span>
+        </button>
+      </div>
+    </div>
+
+    <nav>
+      <button class="active" aria-pressed="true" data-tab="comparador" id="tab-comparador">
+         Comparar peças
+      </button>
+      <button aria-pressed="false" data-tab="builder" id="tab-builder">
+         Montar meu PC
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="container">
+
+    <section class="tab-content active" id="tab-comparador-content" aria-label="Comparador de Hardware">
+
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Compare antes de escolher</h1>
+          <div class="section-subtitle">Selecione duas peças e veja as diferenças de especificações, preço e desempenho estimado.</div>
+        </div>
+        
+      </div>
+
+      <div class="comparador-controls">
+        <span class="controls-label">Categoria</span>
+        <button class="type-btn active" data-compare-type="cpu"> Processador</button>
+        <button class="type-btn" data-compare-type="gpu"> Placa de Vídeo</button>
+        <button class="type-btn" data-compare-type="ram"> Memória RAM</button>
+        <button class="type-btn" data-compare-type="ssd"> Armazenamento</button>
+        <button class="type-btn" data-compare-type="board"> Placa-Mãe</button>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-side is-empty">
+          <label for="compare-left"><span class="designator">A</span> Componente A</label>
+          <select class="select-styled" id="compare-left"></select>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="compare-side is-empty">
+          <label for="compare-right"><span class="designator">B</span> Componente B</label>
+          <select class="select-styled" id="compare-right"></select>
+        </div>
+      </div>
+
+      <p class="estimate-note">Preços consultados manualmente; confirme valor e estoque na loja. Os índices são ilustrativos. Compare também soquete, geração da memória e finalidade de uso; um índice maior não garante a melhor escolha.</p>
+      <div id="compare-result-area"></div>
+    </section>
+
+    <section class="tab-content" id="tab-builder-content" aria-label="Monte Seu PC">
+
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Monte seu PC, peça por peça</h1>
+          <div class="section-subtitle">Escolha os componentes e acompanhe o orçamento, a compatibilidade e o consumo estimado.</div>
+        </div>
+        
+      </div>
+
+      
+      <div class="build-toolbar">
+        <div class="example-actions"><span>Começar com um exemplo:</span>
+          <button class="button-secondary" data-preset="am4">Plataforma AM4</button>
+          <button class="button-secondary" data-preset="am5">Plataforma AM5</button>
+        </div>
+        <label class="compatibility-toggle"><input type="checkbox" id="compatible-only" checked> Impedir conflitos de soquete ou RAM</label>
+      </div>
+      <div class="compatibility-banner" id="compatibility-status" role="status"></div>
+      <div class="builder-layout">
+        
+        <div class="components-grid">
+
+          <div class="component-row component-empty">
+            <div class="component-icon board">MB</div>
+            <div class="component-info">
+              <label class="component-label" for="build-board">Placa-Mãe</label>
+              <select class="select-styled" id="build-board">
+                <option value="">— Selecione a placa-mãe —</option>
+              </select>
+<div class="extra-control"><label for="bios-version">BIOS instalada na placa-mãe</label><select id="bios-version" class="select-styled"><option value="">Não sei a versão instalada</option></select><p class="small muted">A lista reúne versões de BIOS de diferentes anos. Informe a que está instalada na sua placa, não a mais nova da lista. Se não souber, mantenha “Não sei”.</p></div>
+              <div class="component-watt" id="watt-board" style="display:none;">Consumo: <span></span>W</div>
+            </div>
+          </div>
+
+          <div class="component-row component-empty">
+            <div class="component-icon cpu">CPU</div>
+            <div class="component-info">
+              <label class="component-label" for="build-cpu">Processador (CPU)</label>
+              <select class="select-styled" id="build-cpu">
+                <option value="">— Selecione um processador —</option>
+              </select>
+              <div class="component-watt" id="watt-cpu" style="display:none;">Consumo: <span></span>W</div>
+            </div>
+          </div>
+
+          <div class="component-row component-empty">
+            <div class="component-icon gpu">GPU</div>
+            <div class="component-info">
+              <label class="component-label" for="build-gpu">Placa de Vídeo (GPU)</label>
+              <select class="select-styled" id="build-gpu">
+                <option value="">— Selecione uma GPU —</option>
+              </select>
+<div class="extra-control"><label for="gpu-variant">Modelo exato da placa de vídeo</label><select id="gpu-variant" class="select-styled"><option value="">Modelo exato não informado</option></select><p class="small muted" id="gpu-model-help"></p></div>
+              <div class="component-watt" id="watt-gpu" style="display:none;">Consumo: <span></span>W</div>
+            </div>
+          </div>
+
+          <div class="component-row component-empty">
+            <div class="component-icon ram">RAM</div>
+            <div class="component-info">
+              <label class="component-label" for="build-ram">Memória RAM</label>
+              <select class="select-styled" id="build-ram">
+                <option value="">— Selecione a memória RAM —</option>
+              </select>
+              <div class="component-watt" id="watt-ram" style="display:none;">Consumo: <span></span>W</div>
+            </div>
+          </div>
+
+          <div class="component-row component-empty">
+            <div class="component-icon ssd">SSD</div>
+            <div class="component-info">
+              <label class="component-label" for="build-ssd">Armazenamento (SSD/HD)</label>
+              <select class="select-styled" id="build-ssd">
+                <option value="">— Selecione o armazenamento —</option>
+              </select>
+              <div class="component-watt" id="watt-ssd" style="display:none;">Consumo: <span></span>W</div>
+            </div>
+          </div>
+
+          <div class="component-row component-empty">
+            <div class="component-icon psu">PSU</div>
+            <div class="component-info">
+              <label class="component-label" for="build-psu">Fonte de Alimentação</label>
+              <select class="select-styled" id="build-psu">
+                <option value="">— Selecione a fonte —</option>
+              </select>
+<label class="confirmation"><input type="checkbox" id="psu-model-confirmed"><span id="psu-model-label"></span></label>
+            </div>
+          </div>
+
+          <div class="component-row component-empty"><div class="component-icon"></div><div class="component-info"><label class="component-label" for="build-case">Gabinete</label><select class="select-styled" id="build-case"><option value="">— Selecione —</option></select></div></div>
+<div class="component-row component-empty"><div class="component-icon"></div><div class="component-info"><label class="component-label" for="build-cooler">Cooler do processador</label><select class="select-styled" id="build-cooler"><option value="">— Selecione —</option></select><label class="confirmation"><input type="checkbox" id="cooler-kit-confirmed"><span>Conferi que possuo o kit de montagem para o soquete da CPU escolhida.</span></label></div></div>
+<details class="card validation-panel" id="validation-panel" aria-label="Verificações físicas e de BIOS"><summary class="validation-toggle"><span><strong>BIOS, dimensões e conectores</strong><span class="validation-toggle-hint"><span class="when-closed">Ver verificações</span><span class="when-open">Ocultar verificações</span></span></span><span class="validation-chevron" aria-hidden="true"></span></summary><p class="small muted">Cada resultado vale para a medida ou conexão indicada. Não representa garantia de montagem completa. Base ampliada com fichas oficiais em 19/10/2026.</p><div class="validation-legend"><span class="validation-badge state-ok">Sem conflito identificado</span><span class="validation-badge state-blocked">Incompatível</span><span class="validation-badge state-pending">Precisa conferir</span></div><div id="extended-checks"></div></details>
+<div class="card" style="margin-top:6px;">
+            <div class="card-title"> Resumo da montagem</div>
+            <table class="summary-table" id="build-summary">
+              <tr><td colspan="2" style="color:var(--silk-faint); font-size:13px; text-align:center; padding:20px 0;">Escolha as peças para ver os nomes e preços aqui</td></tr>
+            </table>
+            
+            
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <section class="card build-overview" aria-label="Planejamento da montagem">
+            <div class="card-title">Sua montagem</div>
+            <div class="overview-total" id="overview-total">R$ 0,00</div>
+            <div class="muted small" id="overview-price-label">Total das peças selecionadas</div><p class="small muted" id="price-coverage" role="status">Escolha as peças para consultar as ofertas cadastradas.</p><p class="small muted">Preços cadastrados manualmente, sem frete. Podem mudar; confirme valor e estoque na loja.</p>
+            <div class="build-progress-label"><span id="build-count">0 de 8 categorias escolhidas</span><span id="build-percent">0%</span></div>
+            <progress data-stage="start" id="build-progress" max="8" value="0" aria-label="Categorias escolhidas"></progress>
+            <label class="budget-label" for="budget-limit">Quanto você pretende gastar? <span>(opcional)</span></label>
+            <div class="budget-input"><span>R$</span><input id="budget-limit" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="Ex.: 4000"></div>
+            <div class="budget-status" id="budget-status" role="status"></div>
+            <div class="build-actions">
+              <button class="button-primary" id="save-build">Salvar neste navegador</button>
+              <button class="button-secondary" id="export-build">Baixar resumo</button>
+              <button class="button-secondary" id="share-build">Link da montagem</button>
+<button class="button-text" id="clear-build">Limpar montagem</button>
+            </div>
+            <p class="small muted" id="save-status" role="status">As peças só são salvas quando você clicar em salvar.</p>
+          </section>
+
+          <div class="power-card power-ok" id="power-card">
+            <div class="card-title"> Consumo estimado </div>
+            <div class="power-numbers">
+              <div>
+                <div class="power-total" id="power-total">0</div>
+                <div class="power-unit">watts estimados</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:var(--font-display); font-size:16px; color:var(--silk-faint);" id="power-cap">— W</div>
+                <div class="power-capacity">capacidade da fonte</div>
+              </div>
+            </div>
+            <div class="power-meter" id="power-meter">
+              <div class="power-meter-fill" id="power-fill" style="width:0%;"></div>
+            </div>
+            <div class="power-status" id="power-status" role="status">
+              <span class="led led-ok"></span>
+              Escolha uma fonte pra gente conferir se ela aguenta sua build.
+            </div>
+          </div>
+
+          <div class="fps-panel">
+            <div class="card-title"> Desempenho nos jogos</div>
+            <div id="fps-games-area">
+              <div class="empty-state">
+                
+                Escolha a CPU e a GPU pra gente estimar o desempenho nos jogos
+              </div>
+            </div>
+            
+            <details class="fps-source-note"><summary>Como estes números são calculados?</summary><p>FPS é uma simulação didática a partir de índices de CPU e GPU; não é um teste real. O consumo soma os valores cadastrados e uma estimativa de acessórios, sem medir a tomada ou todos os picos.</p><p>Os índices e referências vieram do catálogo original. Veja o README para os limites e fontes declaradas. A seção de verificações usa as fichas oficiais disponíveis e mantém pendente o que não foi confirmado. FPS e consumo continuam estimativas didáticas.</p></details>
+          </div>
+
+        </aside>
+      </div>
+    </section>
+
+  </div>
+</main>
+<div class="mobile-summary"><span><span id="mobile-price-label">Total consultado</span><strong id="mobile-total">R$ 0,00</strong></span><a href="#build-summary">Ver resumo</a></div>
+<dialog id="share-dialog"><h2>Compartilhar montagem</h2><p>O link leva as peças escolhidas. Confirmações de BIOS física e cabos não são transferidas.</p><label for="share-url">Link para copiar</label><input id="share-url" readonly><div class="dialog-actions"><button id="copy-build-link" class="button-primary">Copiar link</button><button id="close-share" class="button-secondary">Fechar</button></div><p id="share-status" role="status"></p></dialog>
+
+<footer>NTJ Builder · Projeto de TCC · Ofertas consultadas manualmente · FPS ilustrativos</footer>
+
+<script src="monitoramento.js"></script>
+<script src="dados.js"></script>
+<script src="dados-validados.js"></script>
+<script src="ofertas.js"></script>
+<script src="precos.js"></script>
+<script src="compatibilidade.js"></script>
+<script src="validacoes.js"></script>
+<script src="interface-validacoes.js"></script>
+<script src="compartilhar.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

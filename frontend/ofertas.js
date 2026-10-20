@@ -1,0 +1,183 @@
+'use strict';
+
+// Cadastro manual: centavos evitam arredondamento na soma.
+// Consulte a página do produto exato antes de alterar valor, condição ou data.
+// GPU usa o ID da variante física, nunca o ID genérico do chip.
+const PRODUCT_OFFERS = {
+  "board:msi-a520m-a-pro": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "MSI A520M-A Pro",
+    "sku": "A520M-A-PRO",
+    "priceCents": 37699,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/placa-mae-msi-a520m-a-pro-ddr4-socket-am4-chipset-amd-a520",
+    "status": "quoted"
+  },
+  "board:msi-b650-tomahawk": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "MSI MAG B650 Tomahawk WiFi",
+    "sku": "MAG-B650-TOMAHAWK-WIFI",
+    "priceCents": 184399,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/placa-mae-msi-mag-b650-tomahawk-wifi-ddr5-socket-am5-chipset-amd-b650-mag-b650-tomahawk-wifi",
+    "status": "quoted"
+  },
+  "board:asus-tuf-b550m": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "ASUS TUF Gaming B550M-Plus",
+    "sku": "TUF-GAMING-B550M-PLUS",
+    "priceCents": 75999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/placa-mae-asus-tuf-gaming-b550m-plus-ddr4-socket-am4-chipset-amd-b550-tuf-gaming-b550m-plus",
+    "status": "quoted"
+  },
+  "cpu:ryzen5-5500": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "AMD Ryzen 5 5500 BOX",
+    "sku": "100-100000457BOX",
+    "priceCents": 55999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/processador-amd-ryzen-5-5500-6-core-12-threads-3-6ghz-4-2ghz-turbo-cache-19mb-am4-100-100000457box",
+    "status": "quoted"
+  },
+  "cpu:ryzen5-7600x": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "AMD Ryzen 5 7600X",
+    "sku": "100-100000593WOF",
+    "priceCents": 108999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/processador-amd-ryzen-5-7600x-6-core-12-threads-4-7ghz-5-3ghz-turbo-cache-38mb-am5-100-100000593wof",
+    "status": "quoted"
+  },
+  "ram:ddr4-8gb-3200-fury": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "Kingston Fury Beast 8GB (1x8GB) DDR4-3200 CL16",
+    "sku": "KF432C16BB-8WP",
+    "priceCents": 59899,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/memoria-kingston-fury-beast-8gb-1x8gb-ddr4-3200mhz-cl16-preta-kf432c16bb-8wp",
+    "status": "quoted"
+  },
+  "ssd:crucial-bx500-1tb": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "Crucial BX500 1TB SATA",
+    "sku": "CT1000BX500SSD1",
+    "priceCents": 98999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/ssd-crucial-bx500-1tb-2-5-sata-iii-6gb-s-leitura-540mb-s-gravac-o-500mb-s-ct1000bx500ssd1",
+    "status": "quoted"
+  },
+  "psu:msi-a550bn-550w": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "MSI MAG A550BN 550W",
+    "sku": "MAGA550BNL",
+    "priceCents": 28999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/fonte-msi-mag-a550bn-550w-80-plus-bronze-preto-maga550bnl",
+    "status": "quoted"
+  },
+  "psu:msi-a750gl-750w": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "MSI MAG A750GL 750W",
+    "sku": "MAG-A750GL",
+    "priceCents": 65999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/fonte-msi-mag-a750gl-750w-full-modular-80-plus-gold-preto-mag-a750gl",
+    "status": "quoted"
+  },
+  "case:ch370": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "DeepCool CH370 preto",
+    "sku": "R-CH370-BKNAM1-G-1",
+    "priceCents": 51499,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/gabinete-gamer-deepcool-ch370-mid-tower-lateral-de-vidro-com-1-fan-preto-r-ch370-bknam1-g-1",
+    "status": "quoted"
+  },
+  "cooler:ag400": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "DeepCool AG400",
+    "sku": "R-AG400-BKNNMN-G-1",
+    "priceCents": 16999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/cooler-para-processador-deepcool-gammaxx-ag400-120mm-r-ag400-bknnmn-g-1",
+    "status": "quoted"
+  },
+  "cooler:ak400": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "DeepCool AK400",
+    "sku": "R-AK400-BKNNMN-G-1",
+    "priceCents": 13999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/cooler-para-processador-deepcool-ak400-120mm-r-ak400-bknnmn-g-1",
+    "status": "quoted"
+  },
+  "cooler:ak620": {
+    "store": "Pichau",
+    "seller": "Pichau",
+    "product": "DeepCool AK620 preto e prata",
+    "sku": "R-AK620-BKNNMT-G",
+    "priceCents": 44999,
+    "payment": "À vista no Pix",
+    "checkedAt": "2026-10-19",
+    "url": "https://www.pichau.com.br/cooler-para-processador-deepcool-ak620-120mm-preto-e-prata-r-ak620-bknnmt-g",
+    "status": "quoted"
+  },
+  "gpu:msi-4060-ventus-oc": {
+    "store": "KaBuM!",
+    "seller": "LOGIN INFORMATICA",
+    "product": "MSI RTX 4060 Ventus 2X Black 8G OC",
+    "sku": "912-V516-012",
+    "priceCents": null,
+    "payment": null,
+    "checkedAt": "2026-10-19",
+    "url": "https://www.kabum.com.br/produto/476926/placa-de-video-msi-rtx-4060-ventus-2x-oc-black-nvidia-geforce-8gb-gddr6-912-v516-012",
+    "status": "unavailable"
+  },
+  "gpu:asus-7600-dual-oc": {
+    "store": "KaBuM!",
+    "seller": "KaBuM!",
+    "product": "ASUS Dual RX 7600 OC 8GB",
+    "sku": "DUAL-RX7600-O8G",
+    "priceCents": null,
+    "payment": null,
+    "checkedAt": "2026-10-19",
+    "url": "https://www.kabum.com.br/produto/462278/placa-de-video-rx-7600-oc-edition-asus-amd-radeon-8-gb-gddr6-tecnologia-0db-dual-rx7600-o8g",
+    "status": "unavailable"
+  },
+  "gpu:asus-3060-dual-oc-v2": {
+    "store": "TerabyteShop",
+    "seller": "TerabyteShop",
+    "product": "ASUS Dual RTX 3060 V2 OC 12GB",
+    "sku": "DUAL-RTX3060-O12G-V2",
+    "priceCents": null,
+    "payment": null,
+    "checkedAt": "2026-10-19",
+    "url": "https://www.terabyteshop.com.br/produto/17268/placa-de-video-asus-geforce-rtx-3060-12gb-gddr6-192bit-90yv0gb2-m0na00",
+    "status": "unavailable"
+  }
+};

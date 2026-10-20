@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="666" viewBox="0 0 768 666">
+<!-- Hexágonos foscos; luz localizada, sem animação ou recursos externos. -->
+<defs><linearGradient id="face" x2=".6" y2="1"><stop stop-color="#192029"/><stop offset="1" stop-color="#10161e"/></linearGradient><filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4"/></filter><g id="plate"><path d="M0 -72 62 -36 62 36 0 72 -62 36 -62 -36Z" fill="url(#face)" stroke="#080e15" stroke-width="1.2"/><path d="M-61 -36 0 -71 61 -36" fill="none" stroke="#28323e" stroke-opacity=".35" stroke-width=".8"/></g></defs>
+<use href="#plate" x="0" y="-37" opacity="0.72"/>
+<use href="#plate" x="128" y="-37" opacity="0.79"/>
+<use href="#plate" x="256" y="-37" opacity="0.86"/>
+<use href="#plate" x="384" y="-37" opacity="0.9299999999999999"/>
+<use href="#plate" x="512" y="-37" opacity="0.72"/>
+<use href="#plate" x="640" y="-37" opacity="0.79"/>
+<use href="#plate" x="768" y="-37" opacity="0.86"/>
+<use href="#plate" x="896" y="-37" opacity="0.9299999999999999"/>
+<use href="#plate" x="-64" y="74" opacity="0.9299999999999999"/>
+<use href="#plate" x="64" y="74" opacity="0.72"/>
+<use href="#plate" x="192" y="74" opacity="0.79"/>
+<use href="#plate" x="320" y="74" opacity="0.86"/>
+<use href="#plate" x="448" y="74" opacity="0.9299999999999999"/>
+<use href="#plate" x="576" y="74" opacity="0.72"/>
+<use href="#plate" x="704" y="74" opacity="0.79"/>
+<use href="#plate" x="832" y="74" opacity="0.86"/>
+<use href="#plate" x="0" y="185" opacity="0.86"/>
+<use href="#plate" x="128" y="185" opacity="0.9299999999999999"/>
+<use href="#plate" x="256" y="185" opacity="0.72"/>
+<use href="#plate" x="384" y="185" opacity="0.79"/>
+<use href="#plate" x="512" y="185" opacity="0.86"/>
+<use href="#plate" x="640" y="185" opacity="0.9299999999999999"/>
+<use href="#plate" x="768" y="185" opacity="0.72"/>
+<use href="#plate" x="896" y="185" opacity="0.79"/>
+<use href="#plate" x="-64" y="296" opacity="0.79"/>
+<use href="#plate" x="64" y="296" opacity="0.86"/>
+<use href="#plate" x="192" y="296" opacity="0.9299999999999999"/>
+<use href="#plate" x="320" y="296" opacity="0.72"/>
+<use href="#plate" x="448" y="296" opacity="0.79"/>
+<use href="#plate" x="576" y="296" opacity="0.86"/>
+<use href="#plate" x="704" y="296" opacity="0.9299999999999999"/>
+<use href="#plate" x="832" y="296" opacity="0.72"/>
+<use href="#plate" x="0" y="407" opacity="0.72"/>
+<use href="#plate" x="128" y="407" opacity="0.79"/>
+<use href="#plate" x="256" y="407" opacity="0.86"/>
+<use href="#plate" x="384" y="407" opacity="0.9299999999999999"/>
+<use href="#plate" x="512" y="407" opacity="0.72"/>
+<use href="#plate" x="640" y="407" opacity="0.79"/>
+<use href="#plate" x="768" y="407" opacity="0.86"/>
+<use href="#plate" x="896" y="407" opacity="0.9299999999999999"/>
+<use href="#plate" x="-64" y="518" opacity="0.9299999999999999"/>
+<use href="#plate" x="64" y="518" opacity="0.72"/>
+<use href="#plate" x="192" y="518" opacity="0.79"/>
+<use href="#plate" x="320" y="518" opacity="0.86"/>
+<use href="#plate" x="448" y="518" opacity="0.9299999999999999"/>
+<use href="#plate" x="576" y="518" opacity="0.72"/>
+<use href="#plate" x="704" y="518" opacity="0.79"/>
+<use href="#plate" x="832" y="518" opacity="0.86"/>
+<use href="#plate" x="0" y="629" opacity="0.86"/>
+<use href="#plate" x="128" y="629" opacity="0.9299999999999999"/>
+<use href="#plate" x="256" y="629" opacity="0.72"/>
+<use href="#plate" x="384" y="629" opacity="0.79"/>
+<use href="#plate" x="512" y="629" opacity="0.86"/>
+<use href="#plate" x="640" y="629" opacity="0.9299999999999999"/>
+<use href="#plate" x="768" y="629" opacity="0.72"/>
+<use href="#plate" x="896" y="629" opacity="0.79"/>
+<use href="#plate" x="-64" y="740" opacity="0.79"/>
+<use href="#plate" x="64" y="740" opacity="0.86"/>
+<use href="#plate" x="192" y="740" opacity="0.9299999999999999"/>
+<use href="#plate" x="320" y="740" opacity="0.72"/>
+<use href="#plate" x="448" y="740" opacity="0.79"/>
+<use href="#plate" x="576" y="740" opacity="0.86"/>
+<use href="#plate" x="704" y="740" opacity="0.9299999999999999"/>
+<use href="#plate" x="832" y="740" opacity="0.72"/>
+<g fill="none"><g stroke="#b57fae" stroke-linecap="round" stroke-linejoin="round"><path d="M0 111 L0 37 L64 0 L128 37" stroke-width="9" opacity=".13" filter="url(#soft)"/><path d="M0 111 L0 37 L64 0 L128 37" stroke-width="1.5" opacity=".24"/></g>
+<g stroke="#ba9a65" stroke-linecap="round" stroke-linejoin="round"><path d="M384 148 L448 111 L512 148 L512 222" stroke-width="9" opacity=".13" filter="url(#soft)"/><path d="M384 148 L448 111 L512 148 L512 222" stroke-width="1.5" opacity=".24"/></g>
+<g stroke="#6da7b9" stroke-linecap="round" stroke-linejoin="round"><path d="M256 333 L320 370 L320 444 L256 481" stroke-width="9" opacity=".13" filter="url(#soft)"/><path d="M256 333 L320 370 L320 444 L256 481" stroke-width="1.5" opacity=".24"/></g>
+<g stroke="#70ab91" stroke-linecap="round" stroke-linejoin="round"><path d="M512 555 L512 481 L576 444 L640 481" stroke-width="9" opacity=".13" filter="url(#soft)"/><path d="M512 555 L512 481 L576 444 L640 481" stroke-width="1.5" opacity=".24"/></g>
+<g stroke="#b57fae" stroke-linecap="round" stroke-linejoin="round"><path d="M768 111 L704 148 L640 111" stroke-width="9" opacity=".13" filter="url(#soft)"/><path d="M768 111 L704 148 L640 111" stroke-width="1.5" opacity=".24"/></g></g></svg>

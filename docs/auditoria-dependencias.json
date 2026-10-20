@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-10-20T03:15:31.301Z",
+  "production": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 17,
+    "devDependencies": 0,
+    "optionalDependencies": 80,
+    "totalDependencies": 97
+  },
+  "all": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 1,
+      "critical": 0
+    },
+    "dependencies": 36,
+    "devDependencies": 297,
+    "optionalDependencies": 169,
+    "totalDependencies": 394
+  },
+  "remaining": [
+    {
+      "package": "esbuild",
+      "severity": "moderate",
+      "title": "esbuild enables any website to send any requests to the development server and read the response",
+      "patched": ">=0.25.0",
+      "url": "https://github.com/advisories/GHSA-67mh-4wv8-2f99",
+      "findings": [
+        {
+          "version": "0.18.20",
+          "paths": [
+            ".>drizzle-kit>@esbuild-kit/esm-loader>@esbuild-kit/core-utils>esbuild"
+          ],
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "package": "braces",
+      "severity": "high",
+      "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+      "patched": null,
+      "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+      "findings": [
+        {
+          "version": "3.0.3",
+          "paths": [
+            ".>vinext>vite-plugin-commonjs>vite-plugin-dynamic-import>fast-glob>micromatch>braces"
+          ],
+          "dev": true,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    }
+  ],
+  "limits": "Auditoria de alertas conhecidos; não prova ausência de falhas. Os dois alertas restantes são ferramentas de geração/compilação, não rotas expostas pelo montador."
+}
