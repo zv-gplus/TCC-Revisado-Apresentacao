@@ -1,5 +1,7 @@
 # Organização do código
 
+Registro histórico da reorganização de outubro de 2026. Os detalhes desta revisão descrevem a estrutura daquela época.
+
 A pasta frontend reúne a interface independente. A pasta src reúne o código do servidor. O objetivo é encontrar cada responsabilidade sem misturar cadastro de produtos, eventos de tela e autenticação.
 
 ## Mudanças desta revisão

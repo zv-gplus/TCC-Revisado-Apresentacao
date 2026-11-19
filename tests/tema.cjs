@@ -1,9 +1,7 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
-const postcss = require("node:module").createRequire(require.resolve("@tailwindcss/postcss"))(
-  "postcss",
-);
+const postcss = require("postcss");
 const script = fs.readFileSync("frontend/js/tema.js", "utf8");
 function setup({
   saved = null,

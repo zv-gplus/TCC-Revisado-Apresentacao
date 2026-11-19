@@ -1,83 +1,66 @@
 # NTJ Builder
 
-Projeto de TCC para comparar peças e montar um computador. A montagem usa HTML, CSS e JavaScript puro. O servidor cuida apenas dos registros de uso e do painel protegido.
+Projeto de TCC para comparar peças e planejar a montagem de um computador. O comparador e o montador usam HTML, CSS e JavaScript e executam os cálculos no navegador. [Abrir o NTJ Builder no Cloudflare](https://ntj-builder.yurizovico4.workers.dev/)
 
-## Abrir e testar o montador
+A [versão criada no ChatGPT](https://ntj-builder-apresentacao-1019.civilmacaw9.chatgpt.site/) serviu de referência visual para o front-end.
 
-Abra frontend/index.html no navegador. O catálogo e a montagem funcionam sem instalar dependências. Para servir pela rede local, com Python instalado, execute na raiz:
+## Rodar e testar
+
+Use Node.js 24 e pnpm 11.25.0, conforme `package.json`.
 
 ```sh
-python -m http.server 8000 --directory frontend
+pnpm install --frozen-lockfile
+npm run dev
 ```
 
-No celular conectado ao mesmo Wi-Fi, use http://IP-DO-COMPUTADOR:8000. O computador precisa permanecer ligado e permitir essa conexão no firewall. Para a apresentação, use o [site público](https://ntj-builder-apresentacao-1019.civilmacaw9.chatgpt.site).
-
-## Onde fica cada coisa
-
-| Pasta | Conteúdo |
-| --- | --- |
-| frontend/ | Site que o visitante utiliza; comece por index.html. |
-| frontend/dados/ | Catálogo, ofertas, dimensões, BIOS e referências. |
-| frontend/js/ | Lógica separada por função. |
-| frontend/css/ | Cores, temas, disposição dos elementos e versão mobile. |
-| frontend/img/ | Texturas RGB locais. |
-| src/app/ | Rotas do servidor e página do painel. |
-| src/server/ | Validação dos eventos, limites, registros e respostas seguras. |
-| src/db/ | Estrutura do banco. |
-| src/lib/ | Integração necessária da plataforma de hospedagem. |
-| tests/ | Testes do montador, segurança, temas e publicação. |
-| docs/ | Fontes consultadas, revisões e explicações complementares. |
-| scripts/ | Comandos de testes, compilação e sincronização. |
-| build/ | Integração do compilador com a hospedagem. Não é o código visual. |
-| drizzle/ | Migrações que criam as tabelas do banco. |
-
-Os arquivos de configuração da raiz são necessários à compilação e publicação. public/ e dist/ são geradas automaticamente e não fazem parte do ZIP. Não edite essas cópias geradas.
-
-## Por onde começar a entender o código
-
-1. frontend/index.html: campos, abas e cartões.
-2. frontend/dados/catalogo.js: peças e índices ilustrativos.
-3. frontend/js/iniciar.js: conecta os eventos aos controles.
-4. frontend/js/comparador.js: comparação entre duas peças.
-5. frontend/js/montador.js: seleção, orçamento, salvamento e resumo.
-6. frontend/js/compatibilidade.js e validacoes.js: regras de compatibilidade.
-7. frontend/js/precos.js: preços e links de referência, sem busca automática.
-8. frontend/css/style.css: aparência, tema claro/escuro e adaptação ao celular.
-
-As funções comuns ficam em utilitarios.js. Compartilhamento, tema e monitoramento têm arquivos próprios. O HTML carrega os dados antes das funções e inicia o aplicativo por último.
-
-## Testes e compilação
-
-Use Node.js 24 e a versão do pnpm indicada no package.json. Depois de instalar as dependências com pnpm install, execute:
+Abra `http://127.0.0.1:5173/`. O Wrangler serve os arquivos de `frontend/` durante o desenvolvimento. Para uma consulta rápida, também é possível abrir `frontend/index.html` no navegador.
 
 ```sh
 npm test
 npm run build
 npm run test:artefato
+npm start
 ```
 
-O primeiro comando testa montagem, preços, fontes, compartilhamento, temas, validações e registros. Os testes do artefato verificam todos os arquivos públicos e ensaios de ataque depois da compilação. Relatórios resultado-*.json são temporários e não entram no Git.
+- `npm test` roda as suítes de catálogo, comparação, montagem, compatibilidade, preços, compartilhamento, fontes e temas.
+- `npm run build` recria `dist/client/` com os arquivos de `frontend/`.
+- `npm run test:artefato` confere o conteúdo e os caminhos dos arquivos, além de executar verificações de HTTP e segurança na prévia local.
+- `npm start` abre a prévia do artefato com Wrangler no mesmo endereço do servidor de desenvolvimento. Encerre o servidor anterior antes de iniciá-la, ou passe `-- --port 5174` para usar outra porta.
 
-São 320 combinações de placa/CPU/RAM, 345.600 cálculos de consumo, 378 comparações, 46 verificações focadas e 172.800 cenários adicionais. Isso usa DOM simulado e não equivale a teste físico das peças ou conferência visual em navegador.
+Os comandos de prévia usam uma data de compatibilidade suportada pelo runtime local do Wrangler. O arquivo `wrangler.jsonc` mantém a data de compatibilidade do Worker publicado.
 
-## Painel e segurança
+## Estrutura
 
-O [painel de registros](https://ntj-builder-apresentacao-1019.civilmacaw9.chatgpt.site/gestao-ntj-7f42b9c1) exige a conta ChatGPT autorizada. O endereço do painel não substitui essa autorização. Abrir frontend/index.html localmente não ativa o painel, autenticação ou banco.
+| Caminho | Conteúdo |
+| --- | --- |
+| `frontend/index.html` | Abas, campos de seleção e cartões do comparador e do montador. |
+| `frontend/css/` e `frontend/img/` | Estilos responsivos, temas e texturas locais. |
+| `frontend/dados/` | Catálogo, especificações técnicas, ofertas e referências. |
+| `frontend/js/` | Comparação, montagem, validações, preços, temas e compartilhamento. |
+| `scripts/` | Geração do artefato, prévia local e execução da suíte de testes. |
+| `tests/` | Testes de funcionalidades, CSS, referências e conteúdo publicado. |
+| `docs/` | Fontes, notas técnicas e [histórico das revisões](docs/historico/README.md). |
+| `wrangler.jsonc` | Worker de destino e diretório de ativos publicado. |
+| `dist/client/` | Artefato gerado. Edite os originais em `frontend/`. |
 
-ADMIN_EMAIL e LOG_RATE_SECRET são segredos da hospedagem e não estão no ZIP. Sem configuração válida o acesso não é liberado. O servidor verifica origem, tamanho e códigos dos eventos; usa SQL parametrizado e limites de coleta. A limitação protege o endpoint de eventos, não toda a infraestrutura contra DDoS.
-
-Os registros contêm categorias gerais de uso, erro e segurança, sem nomes, montagens ou IP em texto. Expiram em até sete dias, com teto de dez mil eventos. A limpeza ocorre na próxima coleta/consulta; eventos vencidos não são mostrados. O IP da infraestrutura só gera uma chave temporária com segredo do servidor. Eventos enviados pelo navegador podem ser bloqueados ou simulados e respeitam a opção Não rastrear.
+Node.js executa os scripts e testes. O pnpm instala as dependências fixadas no lockfile. O PostCSS analisa a estrutura do CSS nas verificações do tema, e o Wrangler executa a prévia e publica os ativos no Cloudflare. A geração copia o HTML, o CSS, o JavaScript e os recursos sem transformação.
 
 ## Limites dos dados
 
-Todas as 64 peças e 24 variantes de GPU têm referências. Itens sem SKU exato identificam a fonte como família/tecnologia. Os 13 preços disponíveis são consultas manuais, com loja, pagamento e data; três anúncios foram registrados como indisponíveis. Não há atualização automática, garantia de estoque ou frete incluído. Preços ausentes não são tratados como peças gratuitas.
+O catálogo inclui 64 peças e 24 variantes de GPU com referências. Os preços são cadastrados com loja, condição de pagamento e data de consulta. Estoque, frete e valores atuais devem ser conferidos na loja.
 
-Índices e FPS são ilustrativos. BIOS, medidas e conectores dependem dos modelos e dados cadastrados. As verificações mantêm pendente o que não foi confirmado e não garantem folgas de cabos, térmica ou montagem física completa.
-
-A troca de tema preserva a montagem e o orçamento. A textura RGB fosca usa SVGs locais, sem animação ou serviços externos.
+Os índices de desempenho, FPS e consumo são estimativas. As verificações de BIOS, dimensões e conectores dependem dos modelos e dados cadastrados. A interface marca como pendente o que ainda precisa ser conferido.
 
 ## GitHub e publicação
 
-O repositório guarda o código e seu histórico. Commit e Sync Changes enviam as alterações ao GitHub; isso não atualiza automaticamente o site publicado. A hospedagem atual usa Vinext, Cloudflare Workers e D1, com identidade declarada em .openai/hosting.json. O build copia frontend/ para public/ antes de compilar. Publicar somente o frontend em hospedagem estática não ativa os logs nem o painel.
+O site público usa o Worker `ntj-builder` no Cloudflare. O deploy é manual. Um push ao GitHub atualiza apenas o repositório.
 
-Veja docs/ORGANIZACAO.md para a reorganização e docs/REVISAO-2026-10-20.md para a auditoria de segurança anterior e seus limites.
+Para preparar o upload, use o checkout da revisão aprovada. Execute as verificações acima e confirme que o Wrangler tem acesso à conta do Worker. Na raiz do repositório, envie o artefato gerado:
+
+```sh
+pnpm exec wrangler versions upload --config wrangler.jsonc
+```
+
+O upload cria uma versão no Cloudflare. Em **Workers & Pages → ntj-builder → Deployments**, selecione o ID retornado pelo Wrangler e implante a versão. Confira a página inicial, o comparador e o montador no endereço público. O histórico de deploys mantém as versões anteriores disponíveis para reversão.
+
+O diretório enviado é `dist/client/`. Testes, documentação, relatórios e capturas ficam fora desse diretório.

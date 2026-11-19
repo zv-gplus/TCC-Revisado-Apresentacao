@@ -10,8 +10,6 @@ const tests = [
   "tests/estados.cjs",
   "tests/tema.cjs",
   "tests/fundo.cjs",
-  "tests/logs.cjs",
-  "tests/seguranca-carga.cjs",
 ];
 for (const test of tests) {
   const result = spawnSync(process.execPath, [test], {

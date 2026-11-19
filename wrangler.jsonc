@@ -1,0 +1,11 @@
+{
+  "name": "ntj-builder",
+  "compatibility_date": "2026-10-15",
+  "assets": {
+    "directory": "./dist/client"
+  },
+  "dev": {
+    "ip": "127.0.0.1",
+    "port": 5173
+  }
+}
