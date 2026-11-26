@@ -29,9 +29,10 @@ const path = require("node:path");
       (f) => /\.(sql|sqlite|db|map|zip)$/.test(f) || f.includes("/.env") || f.includes("/.git/"),
     ),
   );
+  // Um slug como sandisk-sn850x contém "sk-" no meio do nome da marca.
   for (const f of files.filter((f) => /\.(js|json|html|css)$/.test(f)))
     assert.ok(
-      !/(?:ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|sk-[A-Za-z0-9_-]{30,})/.test(
+      !/(?:ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|\bsk-[A-Za-z0-9_-]{30,})/.test(
         fs.readFileSync(f, "utf8"),
       ),
       "Possível segredo no arquivo " + f,

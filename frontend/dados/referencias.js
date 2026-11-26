@@ -3,6 +3,42 @@
 // Base ampliada com fichas oficiais em 19/10/2026.
 // Dado ausente permanece desconhecido: não usar zero como substituto.
 const OFFICIAL_SOURCES = {
+  teamElite16: {
+    title: "TeamGroup Elite DDR4 (TED416G3200C22DC01) — ficha oficial do kit",
+    url: "https://images.teamgroupinc.com/products/memory/u-dimm/ddr4/elite/spec-sheet/elite-en.pdf",
+  },
+  asrock7600Challenger: {
+    title: "ASRock Radeon RX 7600 Challenger 8GB OC — ficha oficial",
+    url: "https://www.asrock.com/Graphics-Card/AMD/Radeon%20RX%207600%20Challenger%208GB%20OC/index.asp",
+  },
+  hiksemiFutureLite: {
+    title: "Hiksemi Future Lite — ficha oficial por capacidade",
+    url: "https://www.hiksemitech.com/en/hiksemi/all-products/solid-state-drive/consumer-ssd/hs-ssd-future-lite.html",
+  },
+  kingstonNv3: {
+    title: "Kingston NV3 — ficha oficial por capacidade",
+    url: "https://www.kingston.com/datasheets/SNV3S_en.pdf",
+  },
+  montechAir903: {
+    title: "Montech AIR 903 BASE — ficha oficial",
+    url: "https://www.montechpc.com/air-903-base",
+  },
+  corsairCx650: {
+    title: "Corsair CX650 — ficha oficial da variante norte-americana",
+    url: "https://www.corsair.com/us/en/p/psu/cp-9020278-na/cx-series-cx650-650-watt-80-plus-bronze-atx-power-supply-cp-9020278-na",
+  },
+  furyDdr5Expo32: {
+    title: "Kingston KF560C36BBEK2/32 — ficha oficial do kit",
+    url: "https://www.kingston.com/datasheets/KF560C36BBEK2-32.pdf",
+  },
+  furyDdr5Beast16: {
+    title: "Kingston KF556C40BBK2-16 — ficha oficial do kit",
+    url: "https://www.kingston.com/datasheets/KF556C40BBK2-16.pdf",
+  },
+  furyDdr4Rgb32: {
+    title: "Kingston KF436C18BB2AK2/32 — ficha oficial do kit",
+    url: "https://www.kingston.com/datasheets/KF436C18BB2AK2_32.pdf",
+  },
   asus_7900xtx_tuf_oc: {
     title: "ASUS TUF Gaming RX 7900 XTX OC 24GB — ficha oficial",
     url: "https://www.asus.com/motherboards-components/graphics-cards/tuf-gaming/tuf-rx7900xtx-o24g-gaming/techspec/",
@@ -288,16 +324,16 @@ Object.assign(OFFICIAL_SOURCES, {
     url: "https://www.kingston.com/datasheets/SA400_br.pdf",
   },
   barracuda: {
-    title: "Seagate — família BarraCuda",
-    url: "https://www.seagate.com/support/internal-hard-drives/desktop-hard-drives/barracuda-3-5/",
+    title: "Seagate BarraCuda ST2000DM001 — ficha oficial",
+    url: "https://www.seagate.com/www-content/product-content/barracuda-fam/desktop-hdd/barracuda-7200-14/en-us/docs/desktop-hdd-ds1770-6-1507us.pdf",
   },
   kc3000: {
     title: "Kingston KC3000",
     url: "https://www.kingston.com/datasheets/KC3000_br.pdf",
   },
   p3plus: {
-    title: "Crucial P3 Plus CT1000P3PSSD8",
-    url: "https://www.crucial.com/ssd/p3-plus/ct1000p3pssd8",
+    title: "Crucial — ficha P3 Plus CT1000P3PSSD8",
+    url: "https://www.crucial.com/content/dam/crucial/ssd-products/p3-plus/flyers/b2c/crucial-p3plus-productflyer-consumer.pdf",
   },
   bx500: {
     title: "Crucial BX500 CT1000BX500SSD1",
@@ -305,15 +341,15 @@ Object.assign(OFFICIAL_SOURCES, {
   },
   nv2: {
     title: "Kingston — ficha NV2",
-    url: "https://www.kingston.com/datasheets/SNV2S_br.pdf",
+    url: "https://www.kingston.com/datasheets/SNV2S_en.pdf",
   },
   su650: {
     title: "ADATA — ficha SU650",
     url: "https://webapi3.adata.com/storage/downloadfile/datasheet_ultimate_su650_25_inch_sata_ssd_v2.pdf",
   },
   rm1000: {
-    title: "Corsair RM1000x — referência 2021",
-    url: "https://www.corsair.com/us/en/p/psu/cp-9020201-na/rmx-series-rm1000x-1000-watt-80-plus-gold-fully-modular-atx-psu-cp-9020201-na",
+    title: "Corsair RM1000x (CP-9020201-WW) — ficha oficial 2021",
+    url: "https://www.corsair.com/ww/pt/p/psu/cp-9020201-ww/rmx-series-rm1000x-1000-watt-80-plus-gold-fully-modular-atx-psu-ww-cp-9020201-ww",
   },
   supernova: {
     title: "EVGA — família SuperNOVA G+",
@@ -358,9 +394,13 @@ const PRODUCT_SOURCES = {
   "cpu:i7-13700k": "cpu13700",
   "cpu:i5-13600k": "cpu13600",
   "cpu:i3-12100f": "cpu12100",
+  "ram:ddr5-32gb-6000": "furyDdr5Expo32",
+  "ram:ddr5-16gb-5600": "furyDdr5Beast16",
+  "ram:ddr4-32gb-3600": "furyDdr4Rgb32",
   "ram:ddr5-64gb-6000-cl30": "vengeance64",
   "ram:ddr4-16gb-3200-cl16-xpg": "spectrix",
   "ram:ddr4-8gb-3200-fury": "fury8",
+  "ram:ddr4-16gb-3200": "teamElite16",
   "ram:ddr4-16gb-3200-gammix": "gammix",
   "ssd:samsung-990pro-2tb": "samsung990",
   "ssd:wd-black-1tb": "sn850x",

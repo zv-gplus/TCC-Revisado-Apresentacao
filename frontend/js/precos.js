@@ -8,25 +8,25 @@ const STORE_HOSTS = {
   TerabyteShop: "www.terabyteshop.com.br",
 };
 
+function validPriceDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(value + "T00:00:00Z");
+  return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value && date <= new Date();
+}
+
+function validPriceCents(value) {
+  return Number.isSafeInteger(value) && value > 0 && value <= 100000000;
+}
+
 function validOffer(offer) {
   if (!offer || !["quoted", "unavailable"].includes(offer.status)) return false;
-  if (!offer.product || !offer.sku || !offer.seller || !/^\d{4}-\d{2}-\d{2}$/.test(offer.checkedAt))
+  if (!offer.product || !offer.sku || !offer.seller || !validPriceDate(offer.checkedAt)) return false;
+  if (offer.status === "quoted" && (!validPriceCents(offer.priceCents) || !offer.payment))
     return false;
-  const date = new Date(offer.checkedAt + "T00:00:00Z");
-  if (
-    !Number.isFinite(date.getTime()) ||
-    date.toISOString().slice(0, 10) !== offer.checkedAt ||
-    date > new Date()
-  )
-    return false;
-  if (
-    offer.status === "quoted" &&
-    (!Number.isSafeInteger(offer.priceCents) ||
-      offer.priceCents <= 0 ||
-      offer.priceCents > 100000000 ||
-      !offer.payment)
-  )
-    return false;
+  return validStoreLink(offer);
+}
+
+function validStoreLink(offer) {
   try {
     const url = new URL(offer.url);
     return (
@@ -46,7 +46,7 @@ function validOffer(offer) {
   }
 }
 
-function getPartOffer(type, item, options = {}) {
+function commercialKey(type, item, options) {
   if (!item) return null;
   let id = item.id;
   if (type === "gpu") {
@@ -56,8 +56,60 @@ function getPartOffer(type, item, options = {}) {
     if (!variant) return null;
     id = variant.id;
   }
-  const offer = PRODUCT_OFFERS[type + ":" + id];
+  return type + ":" + id;
+}
+
+function getPartOffer(type, item, options = {}) {
+  const offer = PRODUCT_OFFERS[commercialKey(type, item, options)];
   return validOffer(offer) ? offer : null;
+}
+
+const REFERENCE_PAGES = new Map([
+  ["Premium Informática", "https://www.premium.com.br/produto/hd-interno-2tb-7200rpm-barracuda-st2000dm001-seagate/"],
+  ["Blast", "https://blastinfo.com.br/produto/placa-de-video-nvidia-rtx-4090-founders-edition-24gb/"],
+]);
+
+function validReferenceLink(source) {
+  if (validStoreLink(source)) return true;
+  try {
+    const url = new URL(source.url);
+    if (url.username || url.password || url.search || url.hash) return false;
+    if (REFERENCE_PAGES.get(source.store) === url.href) return true;
+    return source.store === "PromoTop" && url.origin === "https://promotop.net" &&
+      /^\/placa-de-video-(?:[a-z0-9]+-)+[a-z0-9]+$/.test(url.pathname);
+  } catch {
+    return false;
+  }
+}
+
+function validPriceReference(reference) {
+  if (!reference || !validPriceCents(reference.priceCents) ||
+      !validPriceDate(reference.checkedAt) || !reference.sku || !reference.note)
+    return false;
+  if (reference.kind === "historical") return validReferenceLink(reference);
+  return reference.kind === "estimate" && Array.isArray(reference.sources) &&
+    reference.sources.length >= 2 && reference.sources.every(validReferenceLink) &&
+    new Set(reference.sources.map(({ url }) => url)).size >= 2;
+}
+
+function getPriceReference(type, item, options = {}) {
+  const reference = PRODUCT_PRICE_REFERENCES[commercialKey(type, item, options)];
+  return validPriceReference(reference) ? reference : null;
+}
+
+function priceReferenceLabel(reference) {
+  return reference.kind === "historical"
+    ? "Referência histórica — disponibilidade não confirmada"
+    : "Estimativa de referência";
+}
+
+function missingValueReason(type, item, options, offer) {
+  if (type === "gpu" && !options.gpuVariant) return "Escolha o modelo físico da placa.";
+  const reason = PRODUCT_PRICE_GAPS[commercialKey(type, item, options)];
+  if (reason) return reason;
+  if (item?.brand === "Generic") return "Configuração sem SKU comercial confirmado.";
+  if (offer?.status === "unavailable") return "Indisponível na consulta, sem valor documentado.";
+  return "Nenhuma cotação ou referência confiável para este modelo foi confirmada.";
 }
 
 function offerDate(offer) {
@@ -66,23 +118,37 @@ function offerDate(offer) {
 
 function partPriceText(type, item, options = {}) {
   const offer = getPartOffer(type, item, options);
-  return offer?.status === "quoted" ? formatBRL(offer.priceCents / 100) : "Preço não disponível";
+  if (offer?.status === "quoted") return formatBRL(offer.priceCents / 100);
+  const reference = getPriceReference(type, item, options);
+  return reference
+    ? formatBRL(reference.priceCents / 100) + (reference.kind === "historical" ? " (histórico)" : " (estimado)")
+    : "Valor não verificável";
 }
 
 function renderStoreOffer(type, item, options = {}) {
   const offer = getPartOffer(type, item, options);
-  if (!offer)
-    return (
-      '<div class="offer-details"><span>Preço não disponível</span><small>' +
-      (type === "gpu" && !options.gpuVariant
-        ? "Selecione o modelo exato para consultar a oferta cadastrada."
-        : "Ainda não há uma oferta confirmada para este produto.") +
-      "</small></div>"
-    );
-  return `<div class="offer-details"><strong>${offer.status === "quoted" ? formatBRL(offer.priceCents / 100) : "Preço não disponível"}</strong>
-    <span>${escapeHTML(offer.store)} · ${offer.status === "quoted" ? escapeHTML(offer.payment) : "Indisponível na consulta"}</span>
+  if (offer?.status !== "quoted") {
+    const reference = getPriceReference(type, item, options);
+    if (!reference) {
+      const details = offer
+        ? `<small>${escapeHTML(offer.product)} · ${escapeHTML(offer.sku)} · ${escapeHTML(offer.store)}</small>
+           <a href="${escapeHTML(offer.url)}" target="_blank" rel="noopener noreferrer">Ver anúncio consultado ↗</a>`
+        : "";
+      return `<div class="offer-details"><strong>Valor não verificável</strong>
+        <small>${escapeHTML(missingValueReason(type, item, options, offer))}</small>${details}</div>`;
+    }
+    const sources = reference.kind === "historical" ? [reference] : reference.sources;
+    return `<div class="offer-details"><strong>${formatBRL(reference.priceCents / 100)}</strong>
+      <span>${priceReferenceLabel(reference)}</span>
+      <small>${escapeHTML(reference.sku)} · ${offerDate(reference)}</small>
+      <small>${escapeHTML(reference.note)}</small>
+      ${sources.map((source) => `<a href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">Fonte: ${escapeHTML(source.store)} ↗</a>`).join("")}
+    </div>`;
+  }
+  return `<div class="offer-details"><strong>${formatBRL(offer.priceCents / 100)}</strong>
+    <span>${escapeHTML(offer.store)} · ${escapeHTML(offer.payment)}</span>
     <small>${escapeHTML(offer.product)} · ${escapeHTML(offer.sku)}</small>
-    <small>Consulta: ${offerDate(offer)}${offer.seller !== offer.store ? " · Vendido por " + escapeHTML(offer.seller) : ""}</small>
+    <small>Cotação observada em ${offerDate(offer)} · Vendido por ${escapeHTML(offer.seller)}</small>
     <a href="${escapeHTML(offer.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML("Ver " + offer.product + " na " + offer.store)}">Ver na loja ↗</a></div>`;
 }
 
@@ -90,14 +156,31 @@ function getBuildQuote(parts, options = {}) {
   const selected = Object.entries(parts).filter(([, item]) => item);
   let totalCents = 0;
   let priced = 0;
+  let referenceCents = 0;
+  let referenced = 0;
   for (const [type, item] of selected) {
     const offer = getPartOffer(type, item, options);
     if (offer?.status === "quoted") {
       totalCents += offer.priceCents;
       priced++;
+    } else {
+      const reference = getPriceReference(type, item, options);
+      if (reference) {
+        referenceCents += reference.priceCents;
+        referenced++;
+      }
     }
   }
-  return { totalCents, priced, selected: selected.length, missing: selected.length - priced };
+  return { totalCents, priced, selected: selected.length, missing: selected.length - priced, referenceCents, referenced };
+}
+
+function buildEstimateText(quote) {
+  if (!quote.referenced) return "";
+  const covered = quote.priced + quote.referenced;
+  const label = covered === quote.selected
+    ? "Estimativa de custo da montagem"
+    : "Estimativa parcial de custo da montagem";
+  return `${label}: ${formatBRL((quote.totalCents + quote.referenceCents) / 100)} (${covered} de ${quote.selected} peças selecionadas, inclui referências; sem frete).`;
 }
 
 function quoteAmount(quote) {
@@ -105,17 +188,25 @@ function quoteAmount(quote) {
 }
 
 function quoteLabel(quote) {
-  return quote.missing ? "Subtotal com preços disponíveis" : "Total das peças selecionadas";
+  return quote.missing ? "Subtotal com preços disponíveis" : "Total com ofertas atuais";
 }
 
 function storeOfferText(type, item, options = {}) {
   const offer = getPartOffer(type, item, options);
-  if (!offer) return "Preço não disponível; sem oferta cadastrada para o modelo escolhido.";
+  if (offer?.status !== "quoted") {
+    const reference = getPriceReference(type, item, options);
+    if (!reference) return "Valor não verificável — " + missingValueReason(type, item, options, offer);
+    const sources = reference.kind === "historical" ? [reference] : reference.sources;
+    return [
+      priceReferenceLabel(reference) + ": " + formatBRL(reference.priceCents / 100),
+      "SKU: " + reference.sku + " · Consulta: " + offerDate(reference),
+      reference.note,
+      ...sources.map((source) => "Fonte: " + source.store + " — " + source.url),
+    ].join("\n");
+  }
   return [
     offer.product + " (" + offer.sku + ")",
-    offer.status === "quoted"
-      ? formatBRL(offer.priceCents / 100) + " — " + offer.payment
-      : "Preço não disponível — indisponível na consulta",
+    formatBRL(offer.priceCents / 100) + " — " + offer.payment,
     "Loja: " + offer.store + "; vendedor: " + offer.seller,
     "Consulta: " + offerDate(offer),
     offer.url,
@@ -142,6 +233,9 @@ const SOURCE_HOSTS = new Set([
   "assets.corsair.com",
   "www.corsair.com",
   "www.kingston.com",
+  "images.teamgroupinc.com",
+  "www.hiksemitech.com",
+  "www.montechpc.com",
   "www.xpg.com",
   "download.semiconductor.samsung.com",
   "www.sandisk.com",
@@ -195,11 +289,11 @@ function getProductSource(type, item, options = {}) {
   }
   if (type === "ram" && ["ddr4-16gb-3200-gammix", "ddr4-8gb-3200-fury"].includes(item.id))
     note = "Referência da família; confirme o SKU e o kit na loja.";
-  if (type === "psu" && ["psu-1000w", "psu-850w", "psu-750w", "psu-650w"].includes(item.id))
+  if (type === "psu" && ["psu-850w", "psu-750w", "psu-650w"].includes(item.id))
     note =
       "Referência da família; revisão do catálogo não identificada. Não confirma dimensões nem conectores.";
-  if (type === "ssd" && item.id === "seagate-hdd-2tb")
-    note = "Referência da família BarraCuda; revisão não identificada.";
+  if (type === "psu" && item.id === "psu-1000w")
+    note = "A revisão WW de 2021 é a referência comercial. Conectores não cadastrados para validação.";
   const source = OFFICIAL_SOURCES[key];
   return validSource(source) ? { ...source, note } : null;
 }

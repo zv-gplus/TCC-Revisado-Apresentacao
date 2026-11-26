@@ -32,6 +32,26 @@ windowHandlers.hashchange();
 assert.equal(node("build-cpu").value, "ryzen5-7600x");
 evaluate("location.href='https://ntj.test/?parametro=nao-compartilhar'");
 assert.equal(new URL(evaluate("createBuildLink()")).search, "");
+for (const { id, gpuId } of evaluate("GPU_VARIANTS")) {
+  evaluate(`applyBuild({gpu:${JSON.stringify(gpuId)}},{gpuVariant:${JSON.stringify(id)}})`);
+  const sharedLink = new URL(evaluate("createBuildLink()"));
+  evaluate(`location.hash=${JSON.stringify(sharedLink.hash)}`);
+  windowHandlers.hashchange();
+  assert.equal(node("build-gpu").value, gpuId);
+  assert.equal(node("gpu-variant").value, id);
+}
+for (const invalid of ["nao-existe", "sapphire-6600-pulse"]) {
+  assert.equal(
+    evaluate(`readSharedBuild("#montagem=gpu=rtx4060&gpuVariant=${invalid}").options.gpuVariant`),
+    "",
+  );
+}
+const shared = evaluate("readSharedBuild('#montagem=gpu=rtx4060&gpuVariant=msi-4060-ventus-oc&budget=559.994&psuConfirmed=true&coolerKitConfirmed=true&biosVersion=2423')");
+assert.equal(shared.options.gpuVariant, "msi-4060-ventus-oc");
+assert.equal(shared.options.biosVersion, "");
+assert.equal(shared.options.psuConfirmed, false);
+assert.equal(shared.options.coolerKitConfirmed, false);
+assert.equal(shared.budget, "");
 console.log(
-  "Links: mudar o fragmento atualiza a montagem e parâmetros extras não são encaminhados.",
+  `Links: montagem, ${evaluate("GPU_VARIANTS.length")} variantes, orçamento inválido e confirmações locais verificados.`,
 );

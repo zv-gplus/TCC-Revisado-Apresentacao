@@ -163,7 +163,7 @@ const report = evaluate(`(() => {
     rows.push({ board: board.name, cpu: cpu.name, ram: ram.name, status: issues.length ? 'Bloqueia FPS' : 'Sem conflito nas regras', reasons: issues.map(issue => issue.message) });
     for (const gpu of DB.gpu) for (const ssd of DB.ssd) for (const psu of DB.psu) {
       const parts = { board, cpu, ram, gpu, ssd, psu };
-      const expectedWatts = 20 + board.tdp + cpu.tdp + gpu.tdp + ram.tdp + ssd.tdp;
+      const expectedWatts = 20 + board.tdp + cpu.tdp + gpu.tdp + ram.tdp + (ssd.tdp ?? 0);
       if (getPowerEstimate(parts) !== expectedWatts) throw Error('Consumo divergente');
       const level = expectedWatts > psu.watts ? 'danger' : expectedWatts > psu.watts * 0.8 ? 'warn' : 'ok';
       if (getPowerLevel(expectedWatts, psu.watts) !== level) throw Error('Estado da fonte divergente');

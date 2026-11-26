@@ -31,7 +31,7 @@ for (const v of variants) {
   assert.equal(source.url, evaluate("OFFICIAL_SOURCES[" + JSON.stringify(v.source) + "].url"));
   checked++;
 }
-assert.ok(evaluate('getProductSource("ram", DB.ram[0]).note').includes("ilustrativa"));
+assert.match(evaluate('getProductSource("ram", getItem("ram","ddr4-16gb-3200")).title'), /TED416G3200C22DC01/);
 assert.ok(
   evaluate(
     'getProductSource("gpu", getItem("gpu","rtx4060"), {gpuVariant:"sapphire-7600-pulse"}).note',

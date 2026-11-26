@@ -95,11 +95,11 @@
 
           <div class="comparador-controls">
             <span class="controls-label">Categoria</span>
-            <button class="type-btn active" data-compare-type="cpu">Processador</button>
-            <button class="type-btn" data-compare-type="gpu">Placa de Vídeo</button>
-            <button class="type-btn" data-compare-type="ram">Memória RAM</button>
-            <button class="type-btn" data-compare-type="ssd">Armazenamento</button>
-            <button class="type-btn" data-compare-type="board">Placa-Mãe</button>
+            <button class="type-btn active" data-compare-type="cpu" aria-pressed="true">Processador</button>
+            <button class="type-btn" data-compare-type="gpu" aria-pressed="false">Placa de Vídeo</button>
+            <button class="type-btn" data-compare-type="ram" aria-pressed="false">Memória RAM</button>
+            <button class="type-btn" data-compare-type="ssd" aria-pressed="false">Armazenamento</button>
+            <button class="type-btn" data-compare-type="board" aria-pressed="false">Placa-Mãe</button>
           </div>
 
           <div class="compare-grid">
@@ -316,11 +316,12 @@
                 <div class="card-title">Sua montagem</div>
                 <div class="overview-total" id="overview-total">R$ 0,00</div>
                 <div class="muted small" id="overview-price-label">
-                  Total das peças selecionadas
+                  Total com ofertas atuais
                 </div>
                 <p class="small muted" id="price-coverage" role="status">
                   Escolha as peças para consultar as ofertas cadastradas.
                 </p>
+                <p class="small muted" id="build-estimate" hidden></p>
                 <p class="small muted">
                   Preços cadastrados manualmente, sem frete. Podem mudar; confirme valor e estoque
                   na loja.
@@ -348,6 +349,7 @@
                     max="1000000"
                     step="0.01"
                     inputmode="decimal"
+                    aria-describedby="budget-status"
                     placeholder="Ex.: 4000"
                   />
                 </div>

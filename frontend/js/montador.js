@@ -71,6 +71,11 @@ function updateWattBadge(type, item) {
     el.style.display = "none";
   }
 }
+function storagePowerNote(ssd) {
+  return ssd && !Number.isFinite(ssd.tdp)
+    ? " Consumo do armazenamento não cadastrado. Estimativa de potência parcial."
+    : "";
+}
 function updatePowerSection(board, cpu, gpu, ram, ssd, psu) {
   const totalWatts = getPowerEstimate({ board, cpu, gpu, ram, ssd });
 
@@ -80,6 +85,7 @@ function updatePowerSection(board, cpu, gpu, ram, ssd, psu) {
   const fill = document.getElementById("power-fill");
   const status = document.getElementById("power-status");
   const capacityLabel = document.getElementById("power-cap");
+  const storageNote = storagePowerNote(ssd);
 
   card.className = "power-card";
 
@@ -87,7 +93,7 @@ function updatePowerSection(board, cpu, gpu, ram, ssd, psu) {
     capacityLabel.textContent = "— W";
     fill.style.width = "0%";
     card.classList.add("power-ok");
-    status.innerHTML = `<span class="led led-ok"></span> Escolha uma fonte pra gente conferir se ela aguenta sua build.`;
+    status.innerHTML = `<span class="led led-ok"></span> Escolha uma fonte pra gente conferir se ela aguenta sua build.${storageNote}`;
     return;
   }
 
@@ -98,7 +104,10 @@ function updatePowerSection(board, cpu, gpu, ram, ssd, psu) {
 
   if (totalWatts > capacity) {
     card.classList.add("power-danger");
-    status.innerHTML = `<span class="led led-danger led-pulse"></span> O consumo estimado ultrapassa a potência cadastrada da fonte. Considere uma fonte de maior potência (faltam ${totalWatts - capacity}W).`;
+    status.innerHTML = `<span class="led led-danger led-pulse"></span> O consumo estimado ultrapassa a potência cadastrada da fonte. Considere uma fonte de maior potência (faltam ${totalWatts - capacity}W).${storageNote}`;
+  } else if (storageNote) {
+    card.classList.add("power-warn");
+    status.innerHTML = `<span class="led led-warn"></span>${storageNote}`;
   } else if (usagePct > 80) {
     card.classList.add("power-warn");
     status.innerHTML = `<span class="led led-warn led-pulse"></span> Atenção: a estimativa fica perto da potência da fonte (${Math.round(usagePct)}% de uso). Vale considerar uma margem maior. A estimativa não inclui todos os picos de consumo.`;
@@ -233,14 +242,17 @@ function refreshCompatibilityOptions(parts) {
 function updateOverview(parts) {
   const selected = Object.values(parts).filter(Boolean);
   const quote = getBuildQuote(parts, readValidationOptions());
-  const total = quote.totalCents / 100;
   document.getElementById("overview-total").textContent = quoteAmount(quote);
   document.getElementById("overview-price-label").textContent = quoteLabel(quote);
   document.getElementById("mobile-price-label").textContent = quote.missing
     ? "Subtotal parcial"
-    : "Total consultado";
+    : "Total com ofertas atuais";
+  const estimate = document.getElementById("build-estimate");
+  const estimateText = buildEstimateText(quote);
+  estimate.textContent = estimateText;
+  estimate.hidden = !estimateText;
   document.getElementById("price-coverage").textContent = quote.selected
-    ? `${quote.priced} de ${quote.selected} peças selecionadas com preço.${quote.missing ? " Faltam " + quote.missing + " preços; o subtotal não representa a montagem completa." : ""}`
+    ? `${quote.priced} de ${quote.selected} peças selecionadas com oferta atual.${quote.missing ? " Faltam " + quote.missing + " ofertas atuais; o subtotal não representa a montagem completa." : ""}`
     : "Escolha as peças para consultar as ofertas cadastradas.";
   document.getElementById("build-count").textContent =
     selected.length + " de " + BUILD_TYPES.length + " categorias escolhidas";
@@ -261,19 +273,26 @@ function updateOverview(parts) {
       BUILD_TYPES.length +
       " categorias escolhidas; compatibilidade verificada separadamente.",
   );
-  const budget = getBudget();
+  const input = document.getElementById("budget-limit");
+  const budgetCents = parseBudgetCents(input.value);
+  const invalid = Boolean(input.validity?.badInput) || (input.value !== "" && budgetCents === null);
   const area = document.getElementById("budget-status");
-  const valid = Number.isFinite(budget) && budget > 0 && budget <= 1000000;
-  area.textContent =
-    !valid || !quote.selected
-      ? ""
-      : total > budget
-        ? (quote.missing ? "O subtotal já está acima do orçamento em " : "Acima do orçamento em ") +
-          formatBRL(total - budget)
-        : quote.missing
-          ? "Há preços faltando. Ainda não é possível confirmar se a montagem cabe no orçamento."
-          : "Restam " + formatBRL(budget - total) + " do orçamento, sem frete.";
-  area.classList.toggle("over-budget", valid && total > budget);
+  input.setAttribute("aria-invalid", String(invalid));
+  area.textContent = invalid
+    ? "Informe um orçamento entre R$ 0,01 e R$ 1.000.000,00, com até duas casas decimais."
+    : budgetStatusText(quote, budgetCents);
+  area.classList.toggle("over-budget", invalid || (budgetCents !== null && quote.totalCents > budgetCents));
+}
+
+function budgetStatusText(quote, budgetCents) {
+  if (budgetCents === null || !quote.selected) return "";
+  const difference = budgetCents - quote.totalCents;
+  if (difference < 0) {
+    const label = quote.missing ? "O subtotal já está acima do orçamento em " : "Acima do orçamento em ";
+    return label + formatBRL(-difference / 100) + ".";
+  }
+  if (quote.missing) return "Há preços faltando. Ainda não é possível confirmar se a montagem cabe no orçamento.";
+  return "Restam " + formatBRL(difference / 100) + " do orçamento, sem frete.";
 }
 
 function markUnsaved() {
@@ -281,10 +300,20 @@ function markUnsaved() {
     "Alterações ainda não salvas neste navegador.";
 }
 
-// Só salva identificadores e orçamento. Nunca executa conteúdo vindo do armazenamento.
+// A entrada, os dados salvos e o link usam a mesma validação. As contas usam centavos inteiros.
+function parseBudgetCents(raw) {
+  if (typeof raw !== "string" && typeof raw !== "number") return null;
+  const text = String(raw);
+  if (!/^(?:\d+(?:\.\d{1,2})?|\.\d{1,2})$/.test(text)) return null;
+  const [whole, fraction = ""] = text.split(".");
+  const cents = Number(whole) * 100 + Number(fraction.padEnd(2, "0"));
+  return cents > 0 && cents <= 100000000 ? cents : null;
+}
+
 function getBudget() {
-  const input = Number(document.getElementById("budget-limit").value);
-  return Number.isFinite(input) && input > 0 && input <= 1000000 ? input : "";
+  const input = document.getElementById("budget-limit");
+  const cents = input.validity?.badInput ? null : parseBudgetCents(input.value);
+  return cents === null ? "" : cents / 100;
 }
 
 function normalizeSavedBuild(raw) {
@@ -292,10 +321,10 @@ function normalizeSavedBuild(raw) {
   const parts = Object.fromEntries(
     BUILD_TYPES.map((type) => [type, getItem(type, raw.parts[type])?.id || ""]),
   );
-  const budget = Number(raw.budget);
+  const budgetCents = parseBudgetCents(raw.budget);
   return {
     parts,
-    budget: Number.isFinite(budget) && budget > 0 && budget <= 1000000 ? budget : "",
+    budget: budgetCents === null ? "" : budgetCents / 100,
     options: sanitizeValidationOptions(raw.options, parts),
   };
 }
@@ -319,6 +348,10 @@ function exportBuildText(parts) {
     (item) => item.id === options.gpuVariant && item.gpuId === parts.gpu?.id,
   );
   const quote = getBuildQuote(parts, options);
+  const budget = getBudget();
+  const budgetLines = budget === ""
+    ? []
+    : ["Orçamento informado: " + formatBRL(budget), budgetStatusText(quote, parseBudgetCents(budget))].filter(Boolean);
   const stateLabels = {
     ok: "Sem conflito identificado",
     pending: "Precisa conferir",
@@ -342,12 +375,15 @@ function exportBuildText(parts) {
     quote.priced +
       " de " +
       quote.selected +
-      " peças com preço; " +
+      " peças com oferta atual; " +
       quote.missing +
-      " sem preço. Frete não incluído.",
+      " sem oferta atual. Frete não incluído.",
+    ...[buildEstimateText(quote)].filter(Boolean),
+    ...budgetLines,
+    ...(quote.missing && budget === "" ? ["Há preços faltando. O subtotal não representa o custo completo."] : []),
     "Consumo estimado: " +
       getPowerEstimate(parts) +
-      "W (ventoinhas incluídas na estimativa de acessórios)",
+      "W (ventoinhas incluídas na estimativa de acessórios)." + storagePowerNote(parts.ssd),
     ...getCompatibilityIssues(parts.board, parts.cpu, parts.ram).map(
       (issue) => "ATENÇÃO: " + issue.message,
     ),

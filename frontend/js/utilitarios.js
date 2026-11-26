@@ -34,6 +34,7 @@ function getExtraInfo(item, type) {
     return `${item.cores} • ${item.freq} • Socket ${item.socket} • TDP ${item.tdp}W`;
   if (type === "gpu") return `${item.vram} • Barramento ${item.bus} • TDP ${item.tdp}W`;
   if (type === "ram") return `${item.capacity} • ${item.freq} • ${item.latency}`;
-  if (type === "ssd") return `${item.capacity} • ${item.interface} • ${item.read}`;
+  if (type === "ssd")
+    return `${item.capacity} • ${item.interface} • ${item.read}${item.write ? " de leitura • " + item.write + " de gravação" : ""}`;
   return "";
 }

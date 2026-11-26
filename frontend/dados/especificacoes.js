@@ -62,6 +62,16 @@ DB.case = [
     psuType: "ATX",
     source: "ch560",
   },
+  {
+    id: "montech-air-903-base",
+    name: "Montech AIR 903 BASE Preto",
+    boardTypes: ["ATX", "Micro-ATX", "Mini-ITX"],
+    maxGpuLength: 400,
+    maxCoolerHeight: 180,
+    maxPsuLength: 240,
+    psuType: "ATX",
+    source: "montechAir903",
+  },
 ];
 
 DB.cooler = [
@@ -399,6 +409,18 @@ const GPU_VARIANTS = [
     native16: 0,
     recommendedPsu: 650,
     source: "asus_3060_dual_oc_v2",
+  },
+  {
+    id: "asrock-7600-challenger-oc",
+    gpuId: "rx7600",
+    name: "ASRock Radeon RX 7600 Challenger 8GB OC",
+    length: 269.2,
+    width: 131.8,
+    thickness: 40.3,
+    pcie8: 1,
+    native16: 0,
+    recommendedPsu: 550,
+    source: "asrock7600Challenger",
   },
 ];
 

@@ -18,7 +18,7 @@ Base ampliada em 19/10/2026 com fontes oficiais. As fichas anteriores foram cons
 - As 12 GPUs têm dois modelos físicos, com dimensões e conectores da ficha oficial. Antes eram dois modelos; agora são 24.
 - Gabinetes: de dois para seis. Coolers: de dois para seis, todos a ar.
 - Identificadores e primeiras peças foram preservados para manter montagens antigas.
-- As seleções novas funcionam no salvamento, restauração e exportação. Compartilhamento continua sem levar confirmações pessoais de BIOS/cabos/kit.
+- As seleções de modelo funcionam no salvamento, na restauração e na exportação. O compartilhamento leva o chip e a variante física correspondente. A versão de BIOS e as confirmações de fonte, cabos e kit continuam a cargo de quem recebe a montagem.
 
 Não há sincronização automática. Os preços passaram a vir do cadastro manual em frontend/dados/ofertas.js, conforme docs/OFERTAS-E-PRECOS.md. Somente o modelo exato recebe a oferta; dados ausentes não são preenchidos com preços ilustrativos. Consumo e FPS continuam estimativas do chip, não medições da variante física. Overclock e revisões podem mudar esses valores.
 

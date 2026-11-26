@@ -5,7 +5,12 @@ function createBuildLink() {
     const id = document.getElementById("build-" + type).value;
     if (getItem(type, id)) params.set(type, id);
   }
-  if (getBudget()) params.set("budget", getBudget());
+  const { gpuVariant } = sanitizeValidationOptions(readValidationOptions(), {
+    gpu: params.get("gpu"),
+  });
+  if (gpuVariant) params.set("gpuVariant", gpuVariant);
+  const budget = getBudget();
+  if (budget !== "") params.set("budget", budget);
   const url = new URL(location.href);
   url.search = ""; // Não encaminha parâmetros extras do endereço atual.
   url.hash = "montagem=" + params.toString();
@@ -19,6 +24,7 @@ function readSharedBuild(hash) {
     version: 1,
     parts: Object.fromEntries(BUILD_TYPES.map((type) => [type, params.get(type)])),
     budget: params.get("budget"),
+    options: { gpuVariant: params.get("gpuVariant") },
   });
 }
 
@@ -48,7 +54,7 @@ function initSharing() {
     const shared = readSharedBuild(location.hash);
     if (!shared) return;
     document.getElementById("budget-limit").value = shared.budget;
-    applyBuild(shared.parts);
+    applyBuild(shared.parts, shared.options);
     switchTab("builder", document.getElementById("tab-builder"));
     document.getElementById("save-status").textContent =
       "Montagem recebida pelo link. Confira as pendências antes de salvar.";
