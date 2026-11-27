@@ -26,7 +26,7 @@ test("Soma em centavos e subtotal indicam o preço que falta", () => {
   assert.equal(q.missing, 1);
   assert.ok(node("overview-price-label").textContent.includes("Subtotal"));
   assert.ok(node("price-coverage").textContent.includes("3 de 4"));
-  assert.ok(node("build-summary").innerHTML.includes("Valor não verificável"));
+  assert.ok(node("build-summary").innerHTML.includes("Sem valor confiável"));
   assert.equal(node("mobile-total").textContent, node("overview-total").textContent);
 });
 test("Somente produtos sem preço não são apresentados como gratuitos", () => {
@@ -58,7 +58,8 @@ test("Referência da MSI RTX 4060 mostra modelo, fonte e valor fora do total ati
   assert.match(node("detail-gpu").innerHTML, /TerabyteShop/);
   assert.match(node("detail-gpu").innerHTML, /Referência histórica — disponibilidade não confirmada/);
   assert.match(node("detail-gpu").innerHTML, /912-V516-012/);
-  assert.match(node("build-estimate").textContent, /2\.274,59/);
+  assert.match(node("overview-total").textContent, /2\.274,59/);
+  assert.match(node("build-offer-subtotal").textContent, /nenhuma oferta/);
   assert.equal(evaluate("getBuildQuote(readBuildParts(),readValidationOptions()).priced"), 0);
   assert.ok(!node("detail-gpu").innerHTML.includes("3.999,88"));
 });
@@ -106,7 +107,7 @@ test("GPU só usa oferta da variante exata e troca recalcula o resumo (fixture)"
     );
     node("gpu-variant").value = "sapphire-7600-pulse";
     node("gpu-variant").handlers.change();
-    assert.equal(node("overview-total").textContent, "—");
+    assert.match(node("overview-total").textContent, /1\.899,99/);
     assert.ok(!node("build-summary").innerHTML.includes("1999"));
     assert.equal(
       evaluate("getPartOffer('gpu',getItem('gpu','rtx4060'),{gpuVariant:'asus-7600-dual-oc'})"),
@@ -245,8 +246,12 @@ test("Ofertas atuais, referência histórica e estimativa ficam separadas do or�
     assert.equal(quote.totalCents, 49999);
     assert.equal(quote.referenceCents, 49741);
     assert.equal(quote.referenced, 2);
-    assert.match(node("overview-total").textContent, /499,99/);
-    assert.match(node("build-estimate").textContent, /997,40/);
+    assert.match(node("overview-total").textContent, /997,40/);
+    assert.match(node("overview-price-label").textContent, /Estimativa de custo/);
+    assert.equal(node("mobile-total").textContent, node("overview-total").textContent);
+    assert.match(node("build-summary").innerHTML, /997,40/);
+    assert.match(node("build-offer-subtotal").textContent, /499,99/);
+    assert.doesNotMatch(evaluate("partPriceText('ssd', getItem('ssd','kingston-nv2-500gb'))"), /histórico/);
     assert.match(node("detail-ram").innerHTML, /Estimativa de referência/);
     assert.doesNotMatch(node("budget-status").textContent, /acima|Restam/);
     assert.match(evaluate("exportBuildText(readBuildParts())"), /Estimativa de custo da montagem.*997,40/);

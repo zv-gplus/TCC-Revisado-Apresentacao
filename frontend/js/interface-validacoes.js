@@ -115,8 +115,6 @@ function renderExtendedChecks(parts, checks) {
     .join(
       "",
     )}<p>${pendingText} <a href="#validation-panel">Ver BIOS, dimensões e conectores</a>.</p>`;
-  document.getElementById("mobile-total").textContent =
-    document.getElementById("overview-total").textContent;
   if (messages.length)
     document.getElementById("fps-games-area").innerHTML =
       '<div class="fps-blocked"><strong>Resolva os conflitos confirmados antes de simular esta montagem.</strong>' +

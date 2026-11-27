@@ -15,10 +15,10 @@ Memórias genéricas, kits sem identificação suficiente ou produtos com revis�
 ## Total, orçamento e compartilhamento
 
 - A soma usa inteiros em centavos. Frete e cupons não entram no cálculo; condições Pix são mostradas explicitamente.
-- Com ofertas atuais faltantes, o rótulo é “Subtotal com preços disponíveis”, com a cobertura da cotação.
+- Com ofertas atuais faltantes, o rótulo é “Subtotal de ofertas atuais”, com a cobertura da cotação.
 - Se nenhuma peça selecionada tem oferta atual, o total mostra “—”.
 - Com oferta atual para todas as peças selecionadas, o rótulo é “Total com ofertas atuais”. O progresso continua indicando se faltam categorias da montagem.
-- Quando existe uma referência para alguma peça selecionada, aparece uma estimativa separada com cobertura e valores consultados.
+- Quando existe uma referência para alguma peça selecionada, o montador destaca a estimativa da soma de ofertas e referências. O subtotal das ofertas aparece separado e continua sendo a base do orçamento.
 - O orçamento só informa saldo restante quando todas as peças selecionadas têm cotação. Um subtotal que já excede o limite pode indicar esse excesso.
 - Montagens salvas e links aceitam IDs conhecidos e orçamento positivo de até R$ 1.000.000,00, com precisão de centavos. O link preserva a variante física da GPU quando ela pertence ao chip selecionado. Ao restaurar, o site lê o cadastro atual.
 - O resumo em texto inclui preço consultado, loja, condição, SKU, data, endereço, quantidade de preços faltantes e orçamento, quando válido. Mostra saldo com todos os preços presentes ou excesso quando o próprio subtotal já ultrapassa o orçamento.

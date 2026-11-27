@@ -121,8 +121,8 @@ function partPriceText(type, item, options = {}) {
   if (offer?.status === "quoted") return formatBRL(offer.priceCents / 100);
   const reference = getPriceReference(type, item, options);
   return reference
-    ? formatBRL(reference.priceCents / 100) + (reference.kind === "historical" ? " (histórico)" : " (estimado)")
-    : "Valor não verificável";
+    ? formatBRL(reference.priceCents / 100)
+    : "Sem valor confiável";
 }
 
 function renderStoreOffer(type, item, options = {}) {
@@ -134,7 +134,7 @@ function renderStoreOffer(type, item, options = {}) {
         ? `<small>${escapeHTML(offer.product)} · ${escapeHTML(offer.sku)} · ${escapeHTML(offer.store)}</small>
            <a href="${escapeHTML(offer.url)}" target="_blank" rel="noopener noreferrer">Ver anúncio consultado ↗</a>`
         : "";
-      return `<div class="offer-details"><strong>Valor não verificável</strong>
+      return `<div class="offer-details"><strong>Sem valor confiável</strong>
         <small>${escapeHTML(missingValueReason(type, item, options, offer))}</small>${details}</div>`;
     }
     const sources = reference.kind === "historical" ? [reference] : reference.sources;
@@ -174,13 +174,23 @@ function getBuildQuote(parts, options = {}) {
   return { totalCents, priced, selected: selected.length, missing: selected.length - priced, referenceCents, referenced };
 }
 
+function buildTotalLabel(quote) {
+  if (!quote.referenced) return quoteLabel(quote);
+  return quote.priced + quote.referenced === quote.selected
+    ? "Estimativa de custo da montagem"
+    : "Estimativa parcial de custo da montagem";
+}
+
+function buildTotalAmount(quote) {
+  return quote.referenced
+    ? formatBRL((quote.totalCents + quote.referenceCents) / 100)
+    : quoteAmount(quote);
+}
+
 function buildEstimateText(quote) {
   if (!quote.referenced) return "";
   const covered = quote.priced + quote.referenced;
-  const label = covered === quote.selected
-    ? "Estimativa de custo da montagem"
-    : "Estimativa parcial de custo da montagem";
-  return `${label}: ${formatBRL((quote.totalCents + quote.referenceCents) / 100)} (${covered} de ${quote.selected} peças selecionadas, inclui referências; sem frete).`;
+  return `${buildTotalLabel(quote)}: ${buildTotalAmount(quote)} (${covered} de ${quote.selected} peças selecionadas, inclui referências; sem frete).`;
 }
 
 function quoteAmount(quote) {
@@ -188,14 +198,14 @@ function quoteAmount(quote) {
 }
 
 function quoteLabel(quote) {
-  return quote.missing ? "Subtotal com preços disponíveis" : "Total com ofertas atuais";
+  return quote.missing ? "Subtotal de ofertas atuais" : "Total com ofertas atuais";
 }
 
 function storeOfferText(type, item, options = {}) {
   const offer = getPartOffer(type, item, options);
   if (offer?.status !== "quoted") {
     const reference = getPriceReference(type, item, options);
-    if (!reference) return "Valor não verificável — " + missingValueReason(type, item, options, offer);
+    if (!reference) return "Sem valor confiável — " + missingValueReason(type, item, options, offer);
     const sources = reference.kind === "historical" ? [reference] : reference.sources;
     return [
       priceReferenceLabel(reference) + ": " + formatBRL(reference.priceCents / 100),

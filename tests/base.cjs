@@ -213,7 +213,7 @@ evaluate("applyBuild({})");
 evaluate("initBuilderTools()");
 assert.ok(node("build-cpu").value);
 assert.ok(
-  evaluate("exportBuildText(readBuildParts())").includes("Subtotal com preços disponíveis"),
+  evaluate("exportBuildText(readBuildParts())").includes("Subtotal de ofertas atuais"),
 );
 node("clear-build").handlers.click();
 assert.equal(storage.size, 0);

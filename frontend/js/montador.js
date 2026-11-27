@@ -154,7 +154,10 @@ function updateSummaryTable(parts) {
             `<tr><td><span class="summary-category">${PART_LABELS[type]}</span><span class="summary-name">${escapeHTML(parts[type].name)}</span></td><td>${renderOffer(type, parts[type], options)}</td></tr>`,
         )
         .join("") +
-      `<tr class="summary-total"><td>${quoteLabel(quote)}</td><td>${quoteAmount(quote)}</td></tr>`
+      (quote.referenced
+        ? `<tr><td>${quoteLabel(quote)}</td><td>${quoteAmount(quote)}</td></tr>`
+        : "") +
+      `<tr class="summary-total"><td>${buildTotalLabel(quote)}</td><td>${buildTotalAmount(quote)}</td></tr>`
     : '<tr><td colspan="2">Escolha suas peças para começar.</td></tr>';
 }
 
@@ -242,17 +245,23 @@ function refreshCompatibilityOptions(parts) {
 function updateOverview(parts) {
   const selected = Object.values(parts).filter(Boolean);
   const quote = getBuildQuote(parts, readValidationOptions());
-  document.getElementById("overview-total").textContent = quoteAmount(quote);
-  document.getElementById("overview-price-label").textContent = quoteLabel(quote);
-  document.getElementById("mobile-price-label").textContent = quote.missing
-    ? "Subtotal parcial"
-    : "Total com ofertas atuais";
-  const estimate = document.getElementById("build-estimate");
-  const estimateText = buildEstimateText(quote);
-  estimate.textContent = estimateText;
-  estimate.hidden = !estimateText;
+  const displayTotal = buildTotalAmount(quote);
+  document.getElementById("overview-total").textContent = displayTotal;
+  document.getElementById("overview-price-label").textContent = buildTotalLabel(quote);
+  document.getElementById("mobile-total").textContent = displayTotal;
+  document.getElementById("mobile-price-label").textContent = quote.referenced
+    ? (quote.priced + quote.referenced === quote.selected ? "Estimativa" : "Estimativa parcial")
+    : quoteLabel(quote);
+  const subtotal = document.getElementById("build-offer-subtotal");
+  subtotal.textContent = quote.referenced
+    ? `${quoteLabel(quote)}: ${quote.priced ? quoteAmount(quote) : "nenhuma oferta disponível"}`
+    : "";
+  subtotal.hidden = !quote.referenced;
+  const estimatedCoverage = quote.referenced
+    ? ` A estimativa inclui referências e cobre ${quote.priced + quote.referenced} de ${quote.selected} peças selecionadas.`
+    : "";
   document.getElementById("price-coverage").textContent = quote.selected
-    ? `${quote.priced} de ${quote.selected} peças selecionadas com oferta atual.${quote.missing ? " Faltam " + quote.missing + " ofertas atuais; o subtotal não representa a montagem completa." : ""}`
+    ? `${quote.priced} de ${quote.selected} peças selecionadas com oferta atual.${estimatedCoverage}`
     : "Escolha as peças para consultar as ofertas cadastradas.";
   document.getElementById("build-count").textContent =
     selected.length + " de " + BUILD_TYPES.length + " categorias escolhidas";
@@ -371,6 +380,7 @@ function exportBuildText(parts) {
     "Modelo físico da GPU: " + (variant?.name || "Não informado"),
     "BIOS informada: " + (options.biosVersion || "Desconhecida"),
     "",
+    ...[buildEstimateText(quote)].filter(Boolean),
     quoteLabel(quote) + ": " + quoteAmount(quote),
     quote.priced +
       " de " +
@@ -378,7 +388,6 @@ function exportBuildText(parts) {
       " peças com oferta atual; " +
       quote.missing +
       " sem oferta atual. Frete não incluído.",
-    ...[buildEstimateText(quote)].filter(Boolean),
     ...budgetLines,
     ...(quote.missing && budget === "" ? ["Há preços faltando. O subtotal não representa o custo completo."] : []),
     "Consumo estimado: " +
