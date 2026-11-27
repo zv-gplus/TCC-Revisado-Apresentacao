@@ -143,10 +143,8 @@ function updateFpsSection(cpu, gpu) {
       </div>`;
   }).join("");
 }
-function updateSummaryTable(parts) {
+function updateSummaryTable(parts, options, quote) {
   const selected = BUILD_TYPES.filter((type) => parts[type]);
-  const options = readValidationOptions();
-  const quote = getBuildQuote(parts, options);
   document.getElementById("build-summary").innerHTML = selected.length
     ? selected
         .map(
@@ -165,14 +163,16 @@ function updateSummaryTable(parts) {
 function updateBuild() {
   const parts = readBuildParts();
   syncValidationControls(parts);
-  const checks = getExtendedChecks(parts, readValidationOptions());
+  const options = readValidationOptions();
+  const checks = getExtendedChecks(parts, options);
+  const quote = getBuildQuote(parts, options);
   const issues = getCompatibilityIssues(parts.board, parts.cpu, parts.ram);
   for (const type of ["board", "cpu", "gpu", "ram", "ssd"]) updateWattBadge(type, parts[type]);
   updatePowerSection(parts.board, parts.cpu, parts.gpu, parts.ram, parts.ssd, parts.psu);
-  updateSummaryTable(parts);
-  updateBuilderDetails(parts, issues);
+  updateSummaryTable(parts, options, quote);
+  updateBuilderDetails(parts, issues, options);
   refreshCompatibilityOptions(parts);
-  updateOverview(parts);
+  updateOverview(parts, quote);
   updateFpsSection(parts.cpu, parts.gpu);
   renderExtendedChecks(parts, checks);
 }
@@ -186,7 +186,7 @@ function readBuildParts() {
   );
 }
 
-function updateBuilderDetails(parts, issues) {
+function updateBuilderDetails(parts, issues, options) {
   for (const type of BUILD_TYPES) {
     const select = document.getElementById("build-" + type);
     let detail = document.getElementById("detail-" + type);
@@ -199,7 +199,7 @@ function updateBuilderDetails(parts, issues) {
     const item = parts[type];
     detail.innerHTML = item
       ? escapeHTML(type === "psu" ? item.watts + "W · " + item.cert : getExtraInfo(item, type)) +
-        renderOffer(type, item, readValidationOptions())
+        renderOffer(type, item, options)
       : "";
     select.title = item?.name || "";
     const invalid = issues.some((issue) => issue.field === type);
@@ -242,9 +242,8 @@ function refreshCompatibilityOptions(parts) {
   }
 }
 
-function updateOverview(parts) {
-  const selected = Object.values(parts).filter(Boolean);
-  const quote = getBuildQuote(parts, readValidationOptions());
+function updateOverview(parts, quote = getBuildQuote(parts, readValidationOptions())) {
+  const selectedCount = quote.selected;
   const displayTotal = buildTotalAmount(quote);
   document.getElementById("overview-total").textContent = displayTotal;
   document.getElementById("overview-price-label").textContent = buildTotalLabel(quote);
@@ -264,20 +263,20 @@ function updateOverview(parts) {
     ? `${quote.priced} de ${quote.selected} peças selecionadas com oferta atual.${estimatedCoverage}`
     : "Escolha as peças para consultar as ofertas cadastradas.";
   document.getElementById("build-count").textContent =
-    selected.length + " de " + BUILD_TYPES.length + " categorias escolhidas";
+    selectedCount + " de " + BUILD_TYPES.length + " categorias escolhidas";
   document.getElementById("build-percent").textContent =
-    Math.round((selected.length / BUILD_TYPES.length) * 100) + "%";
+    Math.round((selectedCount / BUILD_TYPES.length) * 100) + "%";
   const progress = document.getElementById("build-progress");
-  progress.value = selected.length;
+  progress.value = selectedCount;
   progress.dataset.stage =
-    selected.length === BUILD_TYPES.length
+    selectedCount === BUILD_TYPES.length
       ? "complete"
-      : selected.length >= BUILD_TYPES.length / 2
+      : selectedCount >= BUILD_TYPES.length / 2
         ? "half"
         : "start";
   progress.setAttribute(
     "aria-valuetext",
-    selected.length +
+    selectedCount +
       " de " +
       BUILD_TYPES.length +
       " categorias escolhidas; compatibilidade verificada separadamente.",

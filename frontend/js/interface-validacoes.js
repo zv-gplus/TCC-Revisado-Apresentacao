@@ -33,10 +33,11 @@ function syncValidationControls(parts) {
     bios.value = "";
   }
   const gpu = document.getElementById("gpu-variant");
+  const variants = GPU_VARIANTS.filter((item) => item.gpuId === parts.gpu?.id);
   if (gpu.dataset.model !== (parts.gpu?.id || "")) {
     gpu.dataset.model = parts.gpu?.id || "";
     gpu.replaceChildren(new Option("Modelo exato não informado", ""));
-    for (const item of GPU_VARIANTS.filter((item) => item.gpuId === parts.gpu?.id))
+    for (const item of variants)
       gpu.add(
         new Option(
           item.name + " · " + partPriceText("gpu", parts.gpu, { gpuVariant: item.id }),
@@ -45,7 +46,7 @@ function syncValidationControls(parts) {
       );
     gpu.value = "";
   }
-  const modelCount = GPU_VARIANTS.filter((item) => item.gpuId === parts.gpu?.id).length;
+  const modelCount = variants.length;
   document.getElementById("gpu-model-help").textContent = modelCount
     ? `${modelCount} modelos cadastrados para ${parts.gpu.name}. Selecione apenas o que corresponde à sua placa; se não estiver na lista, deixe sem informar. O preço acompanha o modelo exato; consumo e FPS continuam estimativas do chip.`
     : "Ainda não há variante física confirmada para este chip; tamanho e alimentação ficarão pendentes.";
@@ -54,9 +55,10 @@ function syncValidationControls(parts) {
     psu.dataset.model = parts.psu?.id || "";
     psu.checked = false;
   }
-  psu.disabled = !PSU_SPECS[parts.psu?.id];
-  document.getElementById("psu-model-label").textContent = PSU_SPECS[parts.psu?.id]
-    ? "Confirmo que minha fonte e seus cabos correspondem a " + PSU_SPECS[parts.psu.id].model
+  const supply = PSU_SPECS[parts.psu?.id];
+  psu.disabled = !supply;
+  document.getElementById("psu-model-label").textContent = supply
+    ? "Confirmo que minha fonte e seus cabos correspondem a " + supply.model
     : "Modelo/revisão da fonte ainda sem ficha de conectores confirmada nesta base.";
   const kit = document.getElementById("cooler-kit-confirmed");
   const kitIdentity = (parts.cooler?.id || "") + "|" + (parts.cpu?.socket || "");
